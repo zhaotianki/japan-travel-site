@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>日本本周旅游推荐 | Weekly Japan Travel Picks</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f5f3;
+        --card: #ffffff;
+        --accent: #c0362c;
+        --accent-soft: #f2d7d5;
+        --text: #1f1f1f;
+        --muted: #6c6c6c;
+        font-family: "Helvetica Neue", Arial, "Hiragino Sans", "Noto Sans CJK", sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header {
+        padding: 24px clamp(16px, 6vw, 64px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .brand-badge {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), #e3574c);
+      }
+      .brand-name {
+        font-size: clamp(20px, 4vw, 28px);
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--text);
+        letter-spacing: 0.08em;
+      }
+      .brand-name:hover,
+      .brand-name:focus-visible {
+        color: var(--accent);
+      }
+      .primary-nav {
+        display: inline-flex;
+        align-items: center;
+        gap: clamp(16px, 4vw, 32px);
+      }
+      .primary-nav a {
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 15px;
+        font-weight: 500;
+        transition: color 0.2s ease;
+      }
+      .primary-nav a:hover,
+      .primary-nav a:focus-visible {
+        color: var(--accent);
+      }
+      .language-toggle {
+        display: inline-flex;
+        gap: 8px;
+        background: var(--card);
+        border-radius: 999px;
+        padding: 4px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      }
+      .language-toggle button {
+        border: none;
+        background: transparent;
+        padding: 8px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--muted);
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      .language-toggle button.active {
+        background: var(--accent);
+        color: #fff;
+      }
+      main {
+        padding: 0 clamp(16px, 6vw, 64px) 64px;
+        display: grid;
+        gap: 48px;
+      }
+      .hero {
+        background: url("https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=1920&q=80")
+          center/cover no-repeat;
+        border-radius: 28px;
+        color: #fff;
+        padding: clamp(32px, 8vw, 120px);
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        gap: 16px;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(145deg, rgba(16, 16, 16, 0.7), rgba(16, 16, 16, 0.2));
+        z-index: 0;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 520px;
+        display: grid;
+        gap: 12px;
+      }
+      .hero h2 {
+        margin: 0;
+        font-size: clamp(32px, 6vw, 48px);
+        letter-spacing: 0.04em;
+      }
+      .hero p {
+        margin: 0;
+        line-height: 1.6;
+        font-size: 16px;
+      }
+      .hero a {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--accent);
+        padding: 12px 18px;
+        border-radius: 999px;
+        font-weight: 600;
+        text-decoration: none;
+        margin-top: 12px;
+        width: fit-content;
+      }
+      .section {
+        display: grid;
+        gap: 24px;
+      }
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .section-heading h3 {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: 0.08em;
+      }
+      .destinations {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+      .card {
+        background: var(--card);
+        padding: 24px;
+        border-radius: 20px;
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.05);
+        position: relative;
+        display: grid;
+        gap: 16px;
+      }
+      .card h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .card p {
+        margin: 0;
+        line-height: 1.5;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .tips {
+        display: grid;
+        gap: 12px;
+      }
+      .tips li {
+        list-style: none;
+        padding: 14px 16px;
+        border-radius: 14px;
+        background: var(--card);
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+      }
+      .tips span {
+        display: inline-flex;
+        width: 38px;
+        height: 38px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-weight: 600;
+      }
+      footer {
+        padding: 32px clamp(16px, 6vw, 64px) 48px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      @media (max-width: 960px) {
+        header {
+          gap: 20px;
+        }
+        .primary-nav {
+          order: 3;
+          flex-basis: 100%;
+          justify-content: center;
+        }
+      }
+      @media (max-width: 720px) {
+        .hero {
+          border-radius: 20px;
+        }
+        .card {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header id="top">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true"></div>
+        <a class="brand-name" href="#home">Explore Japan</a>
+      </div>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="#home" data-i18n="navHome">首页</a>
+        <a href="#weekly-plan" data-i18n="navWeekly">本周推荐</a>
+        <a href="#travel-guides" data-i18n="navGuides">旅行攻略</a>
+        <a href="#contact" data-i18n="navContact">联系我们</a>
+      </nav>
+      <nav class="language-toggle" aria-label="Language switcher">
+        <button type="button" data-lang="zh" class="active">中文</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="ja">日本語</button>
+      </nav>
+    </header>
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-content">
+          <h2 data-i18n="heroTitle">探索春日的京都與富士山</h2>
+          <p data-i18n="heroSubtitle">
+            追逐櫻花前線，本周的旅遊推薦帶你從京都花見到富士山山麓泡湯，
+            感受日本春光與文化底蘊。
+          </p>
+          <a href="#weekly-plan" data-i18n="heroAction">查看本周行程片段 →</a>
+        </div>
+      </section>
+
+      <section class="section" id="weekly-plan">
+        <div class="section-heading">
+          <h3 data-i18n="sectionDestinations">本周精选目的地</h3>
+          <span data-i18n="sectionDestinationsHint">三城三色，快速掌握旅程节奏</span>
+        </div>
+        <div class="destinations">
+          <article class="card">
+            <span class="badge" data-i18n="badgeHighlight">推荐</span>
+            <h4 data-i18n="kyotoTitle">京都嵐山晨雾漫步</h4>
+            <p data-i18n="kyotoDesc">
+              清晨漫步竹林与小桥古寺，感受静谧雅意；搭配传统早餐，开启和风的一日。
+            </p>
+          </article>
+          <article class="card">
+            <span class="badge" data-i18n="badgeNew">新发现</span>
+            <h4 data-i18n="naoshimaTitle">直岛艺术巡礼</h4>
+            <p data-i18n="naoshimaDesc">
+              在海岛美术馆与艺术装置间穿梭，体会日本现代艺术的大胆与细腻融合。
+            </p>
+          </article>
+          <article class="card">
+            <span class="badge" data-i18n="badgeSeason">春季限定</span>
+            <h4 data-i18n="hakoneTitle">箱根富士山泡汤夜景</h4>
+            <p data-i18n="hakoneDesc">
+              夜幕时分泡汤远眺富士山轮廓，佐以赏味怀石料理，完整体验疗愈之旅。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="travel-guides">
+        <div class="section-heading">
+          <h3 data-i18n="sectionTips">旅人小贴士</h3>
+          <span data-i18n="sectionTipsHint">安心出游，提前准备不慌张</span>
+        </div>
+        <ul class="tips">
+          <li>
+            <span>1</span>
+            <p data-i18n="tipTransit">提前购买JR周游券，京都至直岛全程节省约20%的交通费用。</p>
+          </li>
+          <li>
+            <span>2</span>
+            <p data-i18n="tipWeather">春季昼夜温差大，建议携带轻薄外套与防水鞋。</p>
+          </li>
+          <li>
+            <span>3</span>
+            <p data-i18n="tipEtiquette">进入神社前先于手水舍净手漱口，尊重当地礼仪。</p>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer id="contact">
+      <p data-i18n="footerNote">本周资讯更新于：2024年4月 · 数据来源：日本观光厅</p>
+    </footer>
+    <script>
+      const translations = {
+        zh: {
+          navHome: "首页",
+          navWeekly: "本周推荐",
+          navGuides: "旅行攻略",
+          navContact: "联系我们",
+          siteTitle: "日本本周旅游推荐",
+          heroTitle: "探索春日的京都與富士山",
+          heroSubtitle:
+            "追逐櫻花前線，本周的旅遊推薦帶你從京都花見到富士山山麓泡湯，感受日本春光與文化底蘊。",
+          heroAction: "查看本周行程片段 →",
+          sectionDestinations: "本周精选目的地",
+          sectionDestinationsHint: "三城三色，快速掌握旅程节奏",
+          badgeHighlight: "推荐",
+          badgeNew: "新发现",
+          badgeSeason: "春季限定",
+          kyotoTitle: "京都嵐山晨雾漫步",
+          kyotoDesc: "清晨漫步竹林与小桥古寺，感受静谧雅意；搭配传统早餐，开启和风的一日。",
+          naoshimaTitle: "直岛艺术巡礼",
+          naoshimaDesc: "在海岛美术馆与艺术装置间穿梭，体会日本现代艺术的大胆与细腻融合。",
+          hakoneTitle: "箱根富士山泡汤夜景",
+          hakoneDesc: "夜幕时分泡汤远眺富士山轮廓，佐以赏味怀石料理，完整体验疗愈之旅。",
+          sectionTips: "旅人小贴士",
+          sectionTipsHint: "安心出游，提前准备不慌张",
+          tipTransit: "提前购买JR周游券，京都至直岛全程节省约20%的交通费用。",
+          tipWeather: "春季昼夜温差大，建议携带轻薄外套与防水鞋。",
+          tipEtiquette: "进入神社前先于手水舍净手漱口，尊重当地礼仪。",
+          footerNote: "本周资讯更新于：2024年4月 · 数据来源：日本观光厅",
+        },
+        en: {
+          navHome: "Home",
+          navWeekly: "Weekly Picks",
+          navGuides: "Travel Guides",
+          navContact: "Contact",
+          siteTitle: "Japan Weekly Travel Picks",
+          heroTitle: "Kyoto Sunrise & Mount Fuji Escape",
+          heroSubtitle:
+            "Chase the cherry blossom front with a curated route from Kyoto's hanami paths to the onsens beneath Mount Fuji.",
+          heroAction: "Preview This Week's Itinerary →",
+          sectionDestinations: "Featured Destinations This Week",
+          sectionDestinationsHint: "Three cities, three moods—plan at a glance",
+          badgeHighlight: "Top Pick",
+          badgeNew: "New Find",
+          badgeSeason: "Seasonal",
+          kyotoTitle: "Arashiyama Morning Walk",
+          kyotoDesc: "Stroll through bamboo groves and riverside temples at dawn, then enjoy a classic Kyoto breakfast.",
+          naoshimaTitle: "Naoshima Art Trail",
+          naoshimaDesc: "Hop between island museums and installations blending contemporary art with Seto Inland Sea views.",
+          hakoneTitle: "Hakone Onsen Nights",
+          hakoneDesc: "Soak in open-air baths with Fuji in silhouette and savor a seasonal kaiseki dinner afterwards.",
+          sectionTips: "Traveler Notes",
+          sectionTipsHint: "Plan ahead, travel with ease",
+          tipTransit: "Reserve a JR Pass to save around 20% on routes from Kyoto to Naoshima.",
+          tipWeather: "Spring nights get chilly—pack a light layer and water-resistant shoes.",
+          tipEtiquette: "Rinse hands and mouth at shrine water basins before entering sacred areas.",
+          footerNote: "Updated April 2024 · Source: Japan Tourism Agency",
+        },
+        ja: {
+          navHome: "ホーム",
+          navWeekly: "今週のおすすめ",
+          navGuides: "旅のガイド",
+          navContact: "お問い合わせ",
+          siteTitle: "今週の日本旅おすすめ",
+          heroTitle: "春の京都と富士山をめぐる旅",
+          heroSubtitle:
+            "桜前線を追いかけながら、京都の花見と富士山麓の温泉をめぐる春の旅をご紹介します。",
+          heroAction: "今週の行程をチェック →",
+          sectionDestinations: "今週の注目スポット",
+          sectionDestinationsHint: "3つの街で味わう異なる旅リズム",
+          badgeHighlight: "注目",
+          badgeNew: "新スポット",
+          badgeSeason: "春限定",
+          kyotoTitle: "嵐山の朝霧さんぽ",
+          kyotoDesc: "竹林と古寺を巡る静かな朝散歩の後は、京の朝食で一日をスタート。",
+          naoshimaTitle: "直島アートめぐり",
+          naoshimaDesc: "海に浮かぶ美術館と屋外作品を巡り、日本の現代アートに触れましょう。",
+          hakoneTitle: "箱根で味わう富士の湯夜景",
+          hakoneDesc: "夜の露天風呂から富士山のシルエットを眺め、懐石料理で癒やしの夜を。",
+          sectionTips: "旅のヒント",
+          sectionTipsHint: "準備万端で安心の旅を",
+          tipTransit: "JRパスを事前購入すると、京都〜直島の移動費が約2割お得です。",
+          tipWeather: "春は昼夜の寒暖差が大きいので、薄手の上着と防水シューズを。",
+          tipEtiquette: "神社では手水舎で手と口を清めてから参拝しましょう。",
+          footerNote: "2024年4月更新 · 情報提供：観光庁",
+        },
+      };
+
+      const switchers = document.querySelectorAll(".language-toggle button");
+      const elements = document.querySelectorAll("[data-i18n]");
+      function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        elements.forEach((el) => {
+          const key = el.dataset.i18n;
+          const translation = translations[lang][key];
+          if (translation) {
+            el.textContent = translation;
+          }
+        });
+        switchers.forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.lang === lang);
+        });
+      }
+      switchers.forEach((btn) => {
+        btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+      });
+    </script>
+  </body>
+</html>
