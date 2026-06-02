@@ -1,4 +1,5 @@
 import { BadgePercent, ExternalLink, TrendingUp } from "lucide-react";
+import { GoogleAdSenseSlot } from "@/components/ads/google-adsense-slot";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -8,8 +9,29 @@ import {
 } from "@/lib/ad-campaigns";
 
 export function TravelAdSlot() {
+  const adsenseClient = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT;
+  const adsenseSlot = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_HOME_SLOT;
   const campaign = getBestAdCampaign();
   const estimatedCommission = getEstimatedCommission(campaign);
+
+  if (adsenseClient && adsenseSlot) {
+    return (
+      <section className="bg-background" data-testid="travel-ad-slot">
+        <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <Card className="grid gap-4 overflow-hidden border-primary/20 bg-card p-4 sm:p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge>广告区域</Badge>
+                <Badge>Google AdSense</Badge>
+              </div>
+              <p className="text-xs text-muted-foreground">Sponsored</p>
+            </div>
+            <GoogleAdSenseSlot client={adsenseClient} slot={adsenseSlot} />
+          </Card>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-background" data-testid="travel-ad-slot">
@@ -38,7 +60,11 @@ export function TravelAdSlot() {
             </div>
           </div>
           <Button asChild className="bg-white text-[#102f32] hover:bg-white/90">
-            <a href={campaign.href} target="_blank" rel="sponsored noopener noreferrer">
+            <a
+              href={campaign.href}
+              target="_blank"
+              rel="sponsored noopener noreferrer"
+            >
               <BadgePercent className="h-4 w-4" aria-hidden="true" />
               查看广告落地页
               <ExternalLink className="h-4 w-4" aria-hidden="true" />

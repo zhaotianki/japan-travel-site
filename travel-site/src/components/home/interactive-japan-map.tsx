@@ -423,9 +423,6 @@ export function InteractiveJapanMap() {
           className="relative overflow-hidden rounded-lg border border-border bg-[#f4f3ef] shadow-sm"
           data-testid="interactive-japan-map"
         >
-          <div className="pointer-events-none absolute left-[-28px] top-36 hidden h-16 w-16 rounded-full bg-[#d91f2c] lg:block" />
-          <div className="pointer-events-none absolute left-[398px] top-36 hidden h-16 w-16 rounded-full bg-[#d91f2c] lg:block" />
-
           <div className="relative min-h-[900px] p-4 sm:p-6 lg:min-h-[660px]">
             <div className="absolute inset-x-0 bottom-0 top-[390px] lg:inset-0 lg:left-[260px]">
               <svg
@@ -472,15 +469,25 @@ export function InteractiveJapanMap() {
                   />
                 </g>
 
-                <path
-                  d={activeRegion.highlightPath}
-                  fill="#efb5bb"
-                  stroke="#d91f2c"
-                  strokeWidth="2.2"
-                  opacity="0.78"
+                <g
                   data-testid="active-region-highlight"
-                  className="pointer-events-none transition"
-                />
+                  className="pointer-events-none"
+                >
+                  <path
+                    d={activeRegion.highlightPath}
+                    fill="#d91f2c"
+                    opacity="0.68"
+                    className="transition"
+                  />
+                  <path
+                    d={activeRegion.highlightPath}
+                    fill="none"
+                    stroke="#d91f2c"
+                    strokeWidth="2.4"
+                    opacity="0.58"
+                    className="transition"
+                  />
+                </g>
 
                 {regions.map((region) => {
                   const isActive = activeId === region.id;
