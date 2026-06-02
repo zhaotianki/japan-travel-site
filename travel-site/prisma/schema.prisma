@@ -1,0 +1,189 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Destination {
+  id             String          @id @default(cuid())
+  slug           String          @unique
+  name           String
+  region         String
+  summary        String
+  description    String
+  season         String
+  budgetMin      Int
+  budgetMax      Int
+  coverImage     String
+  featured       Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  places         Place[]
+  experiences    Experience[]
+  itineraries    Itinerary[]
+  routeTemplates RouteTemplate[]
+}
+
+model Place {
+  id            String       @id @default(cuid())
+  destinationId String
+  name          String
+  type          String
+  lat           Float?
+  lng           Float?
+  address       String
+  tags          String
+  summary       String
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  experiences   Experience[]
+
+  @@index([destinationId])
+}
+
+model Experience {
+  id                 String          @id @default(cuid())
+  destinationId      String
+  placeId            String?
+  title              String
+  slug               String          @unique
+  summary            String
+  description        String
+  priceFrom          Int
+  durationHours      Float
+  difficulty         String
+  language           String
+  includesMeal       Boolean         @default(false)
+  cancellationPolicy String
+  rating             Float           @default(4.6)
+  reviewCount        Int             @default(0)
+  audience           String
+  themes             String
+  startTime          String
+  meetingPoint       String
+  restrictions       String
+  includes           String
+  excludes           String
+  coverImage         String
+  isActive           Boolean         @default(true)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  destination        Destination     @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  place              Place?          @relation(fields: [placeId], references: [id], onDelete: SetNull)
+  itineraryItems     ItineraryItem[]
+
+  @@index([destinationId])
+  @@index([placeId])
+}
+
+model MediaAsset {
+  id        String @id @default(cuid())
+  ownerType String
+  ownerId   String
+  url       String
+  alt       String
+  sortOrder Int    @default(0)
+
+  @@index([ownerType, ownerId])
+}
+
+model RouteTemplate {
+  id            String      @id @default(cuid())
+  destinationId String
+  title         String
+  slug          String      @unique
+  summary       String
+  days          Int
+  budget        Int
+  themes        String
+  heroImage     String
+  stops         String
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+
+  @@index([destinationId])
+}
+
+model Itinerary {
+  id            String         @id @default(cuid())
+  title         String
+  destinationId String?
+  startDate     DateTime?
+  daysCount     Int            @default(3)
+  partySize     Int            @default(2)
+  budget        Int            @default(0)
+  shareToken    String         @unique
+  contactEmail  String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  destination   Destination?   @relation(fields: [destinationId], references: [id], onDelete: SetNull)
+  days          ItineraryDay[]
+  inquiries     Inquiry[]
+
+  @@index([destinationId])
+}
+
+model ItineraryDay {
+  id          String          @id @default(cuid())
+  itineraryId String
+  dayIndex    Int
+  date        DateTime?
+  notes       String?
+  itinerary   Itinerary       @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
+  items       ItineraryItem[]
+
+  @@index([itineraryId])
+}
+
+model ItineraryItem {
+  id            String       @id @default(cuid())
+  dayId         String
+  type          String
+  refId         String?
+  experienceId  String?
+  startTime     String
+  endTime       String
+  priceEstimate Int
+  sortOrder     Int          @default(0)
+  notes         String?
+  day           ItineraryDay @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  experience    Experience?  @relation(fields: [experienceId], references: [id], onDelete: SetNull)
+
+  @@index([dayId])
+  @@index([experienceId])
+}
+
+model Inquiry {
+  id          String     @id @default(cuid())
+  itineraryId String?
+  name        String
+  email       String
+  phone       String
+  partySize   Int
+  travelDate  DateTime?
+  budget      Int?
+  notes       String?
+  status      String     @default("new")
+  createdAt   DateTime   @default(now())
+  itinerary   Itinerary? @relation(fields: [itineraryId], references: [id], onDelete: SetNull)
+
+  @@index([itineraryId])
+  @@index([status])
+}
+
+model ReviewLink {
+  id        String @id @default(cuid())
+  ownerType String
+  ownerId   String
+  provider  String
+  rating    Float
+  url       String
+
+  @@index([ownerType, ownerId])
+}
