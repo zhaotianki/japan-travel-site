@@ -12,6 +12,18 @@ type RuntimeExperience = (typeof fallbackExperiences)[number] & {
   place: (typeof fallbackPlaces)[number] | null;
 };
 
+type RuntimeAffiliateClick = {
+  id: string;
+  campaignId: string;
+  provider: string;
+  href: string;
+  source: string;
+  referrer: string | null;
+  userAgent: string | null;
+  estimatedCommissionCny: number;
+  createdAt: Date;
+};
+
 type RuntimeItinerary = {
   id: string;
   title: string;
@@ -63,6 +75,7 @@ type RuntimeItinerary = {
 const globalStore = globalThis as unknown as {
   fallbackItineraries?: Map<string, RuntimeItinerary>;
   fallbackInquiries?: RuntimeItinerary["inquiries"];
+  fallbackAffiliateClicks?: RuntimeAffiliateClick[];
 };
 
 function itineraries() {
@@ -73,6 +86,11 @@ function itineraries() {
 function inquiries() {
   globalStore.fallbackInquiries ??= [];
   return globalStore.fallbackInquiries;
+}
+
+function affiliateClicks() {
+  globalStore.fallbackAffiliateClicks ??= [];
+  return globalStore.fallbackAffiliateClicks;
 }
 
 function toDate(value?: string) {
@@ -218,4 +236,20 @@ export function createFallbackInquiry(data: InquiryInput) {
 
 export function getFallbackInquiries() {
   return inquiries();
+}
+
+export function createFallbackAffiliateClick(
+  data: Omit<RuntimeAffiliateClick, "id" | "createdAt">,
+) {
+  const click = {
+    id: `clk_${randomUUID().replaceAll("-", "").slice(0, 12)}`,
+    ...data,
+    createdAt: new Date(),
+  };
+  affiliateClicks().unshift(click);
+  return click;
+}
+
+export function getFallbackAffiliateClicks() {
+  return affiliateClicks();
 }

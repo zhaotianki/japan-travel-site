@@ -7,6 +7,7 @@ import {
 } from "@/lib/fallback-data";
 import {
   fallbackExperienceRows,
+  getFallbackAffiliateClicks,
   getFallbackInquiries,
   getFallbackItinerary,
   getFallbackSharedItinerary,
@@ -485,7 +486,14 @@ export async function getAdminData() {
     "getAdminData",
     async () => {
       const db = getPrisma();
-      const [destinations, experiences, inquiries, routes, places] =
+      const [
+        destinations,
+        experiences,
+        inquiries,
+        routes,
+        places,
+        affiliateClicks,
+      ] =
         await Promise.all([
           db.destination.findMany({ orderBy: { name: "asc" } }),
           db.experience.findMany({
@@ -506,9 +514,20 @@ export async function getAdminData() {
             include: { destination: true },
             orderBy: { name: "asc" },
           }),
+          db.affiliateClick.findMany({
+            orderBy: { createdAt: "desc" },
+            take: 100,
+          }),
         ]);
 
-      return { destinations, experiences, inquiries, routes, places };
+      return {
+        destinations,
+        experiences,
+        inquiries,
+        routes,
+        places,
+        affiliateClicks,
+      };
     },
     () => ({
       destinations: fallbackDestinations,
@@ -526,6 +545,7 @@ export async function getAdminData() {
           (destination) => destination.id === place.destinationId,
         )!,
       })),
+      affiliateClicks: getFallbackAffiliateClicks(),
     }),
   );
 }

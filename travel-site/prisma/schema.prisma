@@ -187,3 +187,18 @@ model ReviewLink {
 
   @@index([ownerType, ownerId])
 }
+
+model AffiliateClick {
+  id                     String   @id @default(cuid())
+  campaignId             String
+  provider               String
+  href                   String
+  source                 String
+  referrer               String?
+  userAgent              String?
+  estimatedCommissionCny Int
+  createdAt              DateTime @default(now())
+
+  @@index([campaignId])
+  @@index([createdAt])
+}

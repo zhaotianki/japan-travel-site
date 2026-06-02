@@ -1,4 +1,4 @@
-import { Power, Save } from "lucide-react";
+import { MousePointerClick, Power, Save, TrendingUp } from "lucide-react";
 import {
   createDestinationAction,
   createExperienceAction,
@@ -18,6 +18,34 @@ import type { getAdminData } from "@/lib/data";
 type AdminData = Awaited<ReturnType<typeof getAdminData>>;
 
 export function AdminDashboard({ data }: { data: AdminData }) {
+  const estimatedAffiliateRevenue = data.affiliateClicks.reduce(
+    (sum, click) => sum + click.estimatedCommissionCny,
+    0,
+  );
+  const topAffiliateCampaigns = Object.values(
+    data.affiliateClicks.reduce<
+      Record<
+        string,
+        {
+          campaignId: string;
+          provider: string;
+          clicks: number;
+          estimatedRevenue: number;
+        }
+      >
+    >((acc, click) => {
+      acc[click.campaignId] ??= {
+        campaignId: click.campaignId,
+        provider: click.provider,
+        clicks: 0,
+        estimatedRevenue: 0,
+      };
+      acc[click.campaignId].clicks += 1;
+      acc[click.campaignId].estimatedRevenue += click.estimatedCommissionCny;
+      return acc;
+    }, {}),
+  ).sort((a, b) => b.estimatedRevenue - a.estimatedRevenue);
+
   return (
     <div className="grid gap-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
@@ -33,7 +61,7 @@ export function AdminDashboard({ data }: { data: AdminData }) {
         </form>
       </div>
 
-      <section className="grid gap-4 lg:grid-cols-3">
+      <section className="grid gap-4 lg:grid-cols-5">
         <Card className="p-5">
           <p className="text-sm text-muted-foreground">目的地</p>
           <p className="mt-1 text-3xl font-semibold">{data.destinations.length}</p>
@@ -46,6 +74,69 @@ export function AdminDashboard({ data }: { data: AdminData }) {
           <p className="text-sm text-muted-foreground">询单</p>
           <p className="mt-1 text-3xl font-semibold">{data.inquiries.length}</p>
         </Card>
+        <Card className="p-5">
+          <p className="text-sm text-muted-foreground">广告点击</p>
+          <p className="mt-1 flex items-center gap-2 text-3xl font-semibold">
+            <MousePointerClick className="h-6 w-6 text-primary" aria-hidden="true" />
+            {data.affiliateClicks.length}
+          </p>
+        </Card>
+        <Card className="p-5">
+          <p className="text-sm text-muted-foreground">预计佣金</p>
+          <p className="mt-1 flex items-center gap-2 text-3xl font-semibold">
+            <TrendingUp className="h-6 w-6 text-primary" aria-hidden="true" />
+            {formatCurrency(estimatedAffiliateRevenue)}
+          </p>
+        </Card>
+      </section>
+
+      <section className="grid gap-4">
+        <h2 className="text-xl font-semibold">收入入口</h2>
+        <div className="overflow-x-auto rounded-md border border-border bg-card">
+          <table className="w-full min-w-[760px] text-left text-sm">
+            <thead className="bg-muted text-muted-foreground">
+              <tr>
+                <th className="p-3">广告</th>
+                <th className="p-3">点击</th>
+                <th className="p-3">预计佣金</th>
+                <th className="p-3">最近来源</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topAffiliateCampaigns.length > 0 ? (
+                topAffiliateCampaigns.map((campaign) => {
+                  const latestClick = data.affiliateClicks.find(
+                    (click) => click.campaignId === campaign.campaignId,
+                  );
+                  return (
+                    <tr key={campaign.campaignId} className="border-t border-border">
+                      <td className="p-3">
+                        <p className="font-medium">{campaign.provider}</p>
+                        <p className="font-mono text-xs text-muted-foreground">
+                          {campaign.campaignId}
+                        </p>
+                      </td>
+                      <td className="p-3">{campaign.clicks}</td>
+                      <td className="p-3">{formatCurrency(campaign.estimatedRevenue)}</td>
+                      <td className="p-3 text-muted-foreground">
+                        {latestClick?.source ?? "home"} ·{" "}
+                        {latestClick
+                          ? latestClick.createdAt.toLocaleDateString("zh-CN")
+                          : "暂无"}
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr className="border-t border-border">
+                  <td className="p-3 text-muted-foreground" colSpan={4}>
+                    暂无广告点击
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section className="grid gap-5 xl:grid-cols-2">

@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import {
   getBestAdCampaign,
   getEstimatedCommission,
+  getTrackedAdHref,
 } from "@/lib/ad-campaigns";
 
 export function TravelAdSlot() {
@@ -61,7 +62,7 @@ export function TravelAdSlot() {
           </div>
           <Button asChild className="bg-white text-[#102f32] hover:bg-white/90">
             <a
-              href={campaign.href}
+              href={getTrackedAdHref(campaign)}
               target="_blank"
               rel="sponsored noopener noreferrer"
             >

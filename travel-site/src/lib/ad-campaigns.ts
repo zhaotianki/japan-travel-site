@@ -53,12 +53,28 @@ function estimatedCommission(campaign: TravelAdCampaign) {
   return campaign.commissionRate * campaign.estimatedOrderValueCny;
 }
 
+export function getAdCampaigns() {
+  return campaigns;
+}
+
 export function getBestAdCampaign() {
   return [...campaigns].sort(
     (a, b) => estimatedCommission(b) - estimatedCommission(a),
   )[0];
 }
 
+export function getAdCampaign(id: string) {
+  return campaigns.find((campaign) => campaign.id === id) ?? null;
+}
+
 export function getEstimatedCommission(campaign: TravelAdCampaign) {
   return Math.round(estimatedCommission(campaign));
+}
+
+export function getTrackedAdHref(campaign: TravelAdCampaign, source = "home") {
+  const params = new URLSearchParams({
+    campaign: campaign.id,
+    source,
+  });
+  return `/api/affiliate-clicks?${params.toString()}`;
 }
