@@ -76,7 +76,7 @@ export default async function Home() {
 
       <InteractiveJapanMap />
 
-      <TravelAdSlot />
+      <TravelAdSlot source="home" />
 
       <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-14 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4">

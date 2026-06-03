@@ -1,4 +1,5 @@
 import { PageShell } from "@/components/layout/site-shell";
+import { TravelAdSlot } from "@/components/ads/travel-ad-slot";
 import { ExperienceCard } from "@/components/search/experience-card";
 import { SearchFilters } from "@/components/search/search-filters";
 import { SearchForm } from "@/components/search/search-form";
@@ -94,6 +95,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
                   lng: item.lng,
                 }))}
               />
+              <TravelAdSlot source="search" compact />
               <div className="grid gap-5">
                 {results.map((experience) => (
                   <ExperienceCard
