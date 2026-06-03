@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   },
   description:
     "面向中国游客的日本自由行规划工具，支持目的地搜索、体验筛选、行程保存、分享与旅行顾问询单。",
+  other: {
+    "agd-partner-manual-verification": "",
+  },
 };
 
 export default function RootLayout({
