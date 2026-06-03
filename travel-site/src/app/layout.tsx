@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className="h-full antialiased">
       <head>
-        <meta name="agd-partner-manual-verification" content="true" />
+        <meta name="agd-partner-manual-verification" />
       </head>
       <body className="flex min-h-full flex-col">
         {adsenseClient ? (
