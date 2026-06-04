@@ -5,7 +5,7 @@ import { getContactUrl, siteConfig } from "@/lib/site";
 export function Header() {
   return (
     <header className="site-header">
-      <Link href="/" className="brand" aria-label="Codex 全球教学博客首页">
+      <Link href="/" className="brand" aria-label="AI实战安装教程与Agent知识库首页">
         <span className="brand-mark">
           <Sparkles size={18} aria-hidden="true" />
         </span>
@@ -13,10 +13,9 @@ export function Header() {
       </Link>
       <nav className="main-nav" aria-label="主导航">
         <Link href="/tutorials">教程</Link>
-        <Link href="/resources">资源库</Link>
-        <Link href="/cases">案例库</Link>
-        <Link href="/ai-tools">AI工具</Link>
-        <Link href="/contact">合作</Link>
+        <Link href="/cases">实战案例</Link>
+        <Link href="/resources">截图/文档</Link>
+        <Link href="/contact">提交问题</Link>
       </nav>
       <div className="header-actions">
         <div className="language-switcher" aria-label="语言切换">
@@ -26,12 +25,12 @@ export function Header() {
             </Link>
           ))}
         </div>
-        <Link href="/cases" className="icon-link" aria-label="搜索案例">
+        <Link href="/tutorials" className="icon-link" aria-label="搜索教程">
           <Search size={18} aria-hidden="true" />
         </Link>
         <Link href={getContactUrl()} className="contact-button">
           <MessageCircle size={18} aria-hidden="true" />
-          联系群主
+          提交问题
         </Link>
       </div>
     </header>

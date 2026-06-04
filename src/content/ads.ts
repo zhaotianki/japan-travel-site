@@ -14,40 +14,40 @@ export const sponsorAds: SponsorAd[] = [
     id: "codex-training-sidebar",
     placement: "sidebar-top",
     eyebrow: "广告 / Sponsored",
-    title: "Codex 实战训练营",
-    description: "从提示词、AGENTS.md、浏览器验证到自动化更新，建立能直接用于项目的 AI 编程流程。",
-    cta: "预约学习",
+    title: "Google AdSense 广告位",
+    description: "本站已加载 AdSense client。固定广告单元需要在 AdSense 后台通过审核并配置 slot 后展示。",
+    cta: "查看隐私政策",
     href: "/contact",
-    tags: ["课程", "社群", "Codex"]
+    tags: ["AdSense", "广告披露", "隐私"]
   },
   {
     id: "ai-toolkit-home",
     placement: "home-leaderboard",
     eyebrow: "广告 / Sponsored",
-    title: "AI 编程工具包：模板、脚本、案例库",
-    description: "适合内容站长和开发者的可复用素材包：教程脚本、截图清单、案例整理提示词和自动发布流程。",
-    cta: "查看资源库",
+    title: "本站广告说明",
+    description: "广告不会替代教程正文。教程目录和正文以真实操作、官方来源和可复现步骤为准。",
+    cta: "查看规则",
     href: "/resources",
-    tags: ["模板", "自动化", "内容变现"]
+    tags: ["广告", "真实教程", "来源"]
   },
   {
     id: "enterprise-workflow-content",
     placement: "content-top",
     eyebrow: "广告 / Sponsored",
-    title: "企业 Codex 工作流搭建",
-    description: "帮助团队把 Codex 接入代码审查、测试、前端验收、GitHub/Slack/Linear 流程，并沉淀团队规则。",
-    cta: "联系合作",
+    title: "内容提交入口",
+    description: "提交真实安装、部署、API、MCP、Agent 运行过程中的错误、截图位置和解决方案。",
+    cta: "提交问题",
     href: "/contact",
-    tags: ["企业培训", "代码审查", "自动化"]
+    tags: ["真实操作", "错误记录", "FAQ"]
   },
   {
     id: "sponsor-ai-coding-cases",
     placement: "content-inline",
     eyebrow: "广告 / Sponsored",
-    title: "赞助 AI 编程案例深度文章",
-    description: "面向 AI 编程工具、课程、社群和开发者服务，支持案例文章、工具评测和教程合作。",
-    cta: "提交合作需求",
+    title: "实战记录征集",
+    description: "只接受可以复查的真实操作记录，包括命令、错误信息、截图位置和修复步骤。",
+    cta: "提交记录",
     href: "/contact",
-    tags: ["赞助文章", "工具评测", "联盟推荐"]
+    tags: ["实战案例", "不虚构", "可复现"]
   }
 ];

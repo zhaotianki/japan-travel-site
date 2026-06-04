@@ -12,30 +12,30 @@ export function Sidebar() {
       <section className="side-panel">
         <h2>
           <Mail size={18} aria-hidden="true" />
-          订阅与联系
+          提交问题
         </h2>
-        <p>加入交流群，获取 Codex 教程、自动化模板和案例更新。</p>
+        <p>只收集真实安装、部署、API、MCP 和 Agent 使用过程中的错误与解决方案。</p>
         <Link href={getContactUrl()} className="wide-button">
-          联系群主
+          提交问题
         </Link>
       </section>
       <section className="side-panel">
         <h2>
           <Crown size={18} aria-hidden="true" />
-          获利方式
+          网站规则
         </h2>
         <ul className="plain-list">
-          <li>Google AdSense 展示广告</li>
-          <li>AI工具联盟推荐</li>
-          <li>付费课程与电子书</li>
-          <li>会员社群与直播答疑</li>
-          <li>企业赞助深度文章</li>
+          <li>不发布虚构案例</li>
+          <li>不把目录当正文</li>
+          <li>每篇正文保留来源</li>
+          <li>步骤必须能复现</li>
+          <li>错误必须给解决方案</li>
         </ul>
       </section>
       <section className="side-panel">
         <h2>
           <BookOpen size={18} aria-hidden="true" />
-          推荐资源
+          内容格式
         </h2>
         {affiliateLinks.length > 0 ? (
           <ul className="plain-list">
@@ -49,7 +49,7 @@ export function Sidebar() {
             ))}
           </ul>
         ) : (
-          <p>配置 NEXT_PUBLIC_AFFILIATE_LINKS 后显示联盟、课程和会员入口。</p>
+          <p>每篇教程包含功能介绍、准备、步骤、截图位置、常见错误、解决方案和 FAQ。</p>
         )}
       </section>
       <section className="side-panel">
@@ -57,7 +57,7 @@ export function Sidebar() {
           <RadioTower size={18} aria-hidden="true" />
           更新节奏
         </h2>
-        <p>每周一、三、五自动抓取公开来源，去重后发布带来源的 AI 辅助整理内容。</p>
+        <p>先完成 50 篇目录，再逐篇补充可复现的 2000 字以上真实操作正文。</p>
       </section>
     </aside>
   );

@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="site-footer">
       <div>
         <strong>{siteConfig.name}</strong>
-        <p>Codex 与 AI 编程工具的教程、案例、对比和自动化更新。</p>
+        <p>AI工具安装、MCP配置、Agent部署、API申请、Github管理和Vercel部署的真实操作知识库。</p>
       </div>
       <nav aria-label="页脚导航">
         <Link href="/privacy">隐私政策</Link>

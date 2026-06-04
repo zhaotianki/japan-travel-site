@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BadgeDollarSign, BookOpenCheck, MessageCircle, Send, ShieldCheck } from "lucide-react";
+import { BookOpenCheck, MessageCircle, Send, ShieldCheck, Wrench } from "lucide-react";
 import { AdUnit } from "@/components/AdUnit";
 import { getContactUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "联系群主",
-  description: "联系 Codex 全球教学博客群主，洽谈社群、课程、赞助、合作和内容更新。"
+  title: "提交问题",
+  description: "提交 AI 工具安装、MCP 配置、Agent 部署、API 申请、Github 或 Vercel 部署中的真实问题。"
 };
 
 export default function ContactPage() {
@@ -15,36 +15,36 @@ export default function ContactPage() {
   const cooperationItems = [
     {
       icon: MessageCircle,
-      title: "加入社群",
-      text: "面向 Codex 初学者、AI 编程实践者和内容站长，发布教程、案例和自动化模板。"
+      title: "提交真实错误",
+      text: "提交安装命令、报错截图位置、系统版本、工具版本和你已经尝试过的解决方法。"
     },
     {
-      icon: BadgeDollarSign,
-      title: "广告与赞助",
-      text: "支持工具推荐、赞助文章、课程合作和会员社群，但必须标注商业关系。"
+      icon: Wrench,
+      title: "补充操作步骤",
+      text: "如果某篇目录已经完成真实操作，可以提交准备条件、详细步骤、验证命令和最终结果。"
     },
     {
       icon: BookOpenCheck,
-      title: "企业培训",
-      text: "围绕 Codex CLI、App、AGENTS.md、自动化、GitHub review 和前端验证建立团队工作流。"
+      title: "官方来源修正",
+      text: "如果官方安装命令、价格、API 页面或 MCP 配置方式变化，请提交新的官方来源链接。"
     },
     {
       icon: ShieldCheck,
       title: "内容纠错",
-      text: "案例、价格、功能和来源可能变化，欢迎提交更准确的公开来源和修正建议。"
+      text: "指出无法复现的步骤、过期命令、缺失截图位置或 FAQ 不完整的地方。"
     }
   ];
 
   return (
     <article className="legal-page">
       <div className="eyebrow">
-        <span>社群</span>
-        <span>合作</span>
-        <span>赞助</span>
+        <span>问题反馈</span>
+        <span>真实操作</span>
+        <span>纠错</span>
       </div>
-      <h1>联系群主</h1>
-      <p>用于社群加入、课程合作、赞助文章、AI 工具联盟合作和企业 Codex 培训咨询。</p>
-      <AdUnit placement="content-inline" variant="inline" label="联系页合作广告" />
+      <h1>提交问题</h1>
+      <p>本站只接收真实安装、部署、MCP、Agent、API、Github、Vercel 操作过程中出现的问题和可复查解决方案。</p>
+      <AdUnit placement="content-inline" variant="inline" label="提交页广告" />
       <div className="contact-grid">
         {cooperationItems.map((item) => {
           const Icon = item.icon;
@@ -61,7 +61,7 @@ export default function ContactPage() {
       {isConfigured ? (
         <Link href={contactUrl} className="contact-button">
           <MessageCircle size={18} aria-hidden="true" />
-          打开联系入口
+          打开提交入口
         </Link>
       ) : (
         <div className="side-panel">
@@ -69,7 +69,7 @@ export default function ContactPage() {
             <Send size={18} aria-hidden="true" />
             联系链接未配置
           </h2>
-          <p>设置 `NEXT_PUBLIC_CONTACT_URL` 后，页面顶部和侧栏的“联系群主”按钮会自动指向你的群链接或私信入口。</p>
+          <p>设置 `NEXT_PUBLIC_CONTACT_URL` 后，页面顶部和侧栏按钮会自动指向你的表单、群链接或私信入口。</p>
         </div>
       )}
     </article>

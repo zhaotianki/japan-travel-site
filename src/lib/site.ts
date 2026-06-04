@@ -1,11 +1,9 @@
-import cases from "@/content/cases.json";
 import type { SponsorAd } from "@/content/ads";
-import { aiCodingTools } from "@/content/aiTools";
-import { tutorials } from "@/content/tutorials";
+import { getPublishedTutorials, tutorialCatalog } from "@/content/tutorials";
 
 export const siteConfig = {
-  name: "Codex 全球教学博客",
-  description: "中文主站，系统学习 Codex 与 AI 编程工具：教程、案例、工具对比和自动化内容更新。",
+  name: "AI实战安装教程与Agent知识库",
+  description: "面向零基础用户的真实操作知识库：AI工具安装、插件安装、MCP配置、Agent部署、API申请、Vercel部署和Github管理。",
   defaultUrl: "https://codex-global-blog.vercel.app",
   defaultAdSenseClient: "ca-pub-3023331294575844",
   locale: "zh-CN",
@@ -15,8 +13,6 @@ export const siteConfig = {
     { code: "ja", label: "日本語", href: "/ja" }
   ]
 };
-
-export type CaseStudy = (typeof cases)[number];
 
 export function getSiteUrl() {
   return process.env.NEXT_PUBLIC_SITE_URL || siteConfig.defaultUrl;
@@ -63,26 +59,14 @@ export function getSponsorAds() {
 }
 
 export function getFeaturedTutorials() {
-  return tutorials.slice(0, 4);
-}
-
-export function getLatestCases() {
-  return [...cases].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)).slice(0, 8);
-}
-
-export function getCasesByTool() {
-  return cases.reduce<Record<string, number>>((acc, item) => {
-    acc[item.tool] = (acc[item.tool] || 0) + 1;
-    return acc;
-  }, {});
+  return getPublishedTutorials().slice(0, 4);
 }
 
 export function getContentStats() {
   return {
-    tutorials: tutorials.length,
-    cases: cases.length,
-    targetCases: 100,
-    tools: aiCodingTools.length,
+    tutorials: tutorialCatalog.length,
+    published: getPublishedTutorials().length,
+    targetTutorials: 100,
     languages: siteConfig.languages.length
   };
 }

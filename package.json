@@ -7,8 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
-    "content:update": "tsx scripts/update-content.ts"
+    "lint": "eslint ."
   },
   "dependencies": {
     "lucide-react": "^0.475.0",
