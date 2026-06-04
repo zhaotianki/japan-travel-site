@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-label="浏览器验证前端页面示意图">
+  <rect width="1120" height="640" fill="#f8fafc"/>
+  <rect x="70" y="72" width="980" height="506" rx="8" fill="#ffffff" stroke="#dbe3ef"/>
+  <rect x="70" y="72" width="980" height="62" rx="8" fill="#111827"/>
+  <rect x="120" y="158" width="590" height="330" rx="8" fill="#eef2ff"/>
+  <rect x="748" y="158" width="230" height="82" rx="8" fill="#ffffff" stroke="#dbe3ef"/>
+  <rect x="748" y="264" width="230" height="82" rx="8" fill="#ffffff" stroke="#dbe3ef"/>
+  <rect x="748" y="370" width="230" height="82" rx="8" fill="#ffffff" stroke="#dbe3ef"/>
+  <text x="110" y="111" fill="#e5e7eb" font-family="Arial" font-size="22">localhost:3000</text>
+  <text x="154" y="230" fill="#111827" font-family="Arial" font-size="34" font-weight="700">UI verification</text>
+  <text x="154" y="286" fill="#475569" font-family="Arial" font-size="24">desktop + mobile screenshots</text>
+  <text x="154" y="338" fill="#087f8c" font-family="Arial" font-size="24">console clean</text>
+  <text x="154" y="390" fill="#b64b36" font-family="Arial" font-size="24">no overlap</text>
+</svg>

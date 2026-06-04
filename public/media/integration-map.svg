@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-label="Codex 集成地图示意图">
+  <rect width="1120" height="640" fill="#f8fafc"/>
+  <circle cx="560" cy="320" r="128" fill="#111827"/>
+  <text x="503" y="332" fill="#ffffff" font-family="Arial" font-size="32" font-weight="700">Codex</text>
+  <g fill="#ffffff" stroke="#dbe3ef">
+    <rect x="100" y="110" width="210" height="90" rx="8"/>
+    <rect x="790" y="110" width="210" height="90" rx="8"/>
+    <rect x="100" y="440" width="210" height="90" rx="8"/>
+    <rect x="790" y="440" width="210" height="90" rx="8"/>
+  </g>
+  <g stroke="#087f8c" stroke-width="6" stroke-linecap="round">
+    <path d="M310 155 455 260"/>
+    <path d="M790 155 665 260"/>
+    <path d="M310 485 455 390"/>
+    <path d="M790 485 665 390"/>
+  </g>
+  <text x="156" y="164" fill="#111827" font-family="Arial" font-size="24" font-weight="700">Skills</text>
+  <text x="850" y="164" fill="#111827" font-family="Arial" font-size="24" font-weight="700">MCP</text>
+  <text x="132" y="494" fill="#111827" font-family="Arial" font-size="24" font-weight="700">GitHub</text>
+  <text x="830" y="494" fill="#111827" font-family="Arial" font-size="24" font-weight="700">Slack / Linear</text>
+</svg>

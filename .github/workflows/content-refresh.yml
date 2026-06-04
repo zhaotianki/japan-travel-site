@@ -1,0 +1,29 @@
+name: Content refresh
+
+on:
+  schedule:
+    - cron: "0 2 * * 1,3,5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npm run content:update
+      - run: npm run build
+      - name: Commit refreshed content
+        run: |
+          git config user.name "codex-content-bot"
+          git config user.email "codex-content-bot@example.com"
+          git add src/content/cases.json
+          git diff --cached --quiet || git commit -m "chore: refresh ai coding cases"
+          git push

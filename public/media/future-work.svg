@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-label="AI 改变未来生活方式示意图">
+  <rect width="1120" height="640" fill="#fbfbfc"/>
+  <rect x="70" y="92" width="300" height="420" rx="8" fill="#ffffff" stroke="#e6e8ef"/>
+  <rect x="410" y="92" width="300" height="420" rx="8" fill="#ffffff" stroke="#e6e8ef"/>
+  <rect x="750" y="92" width="300" height="420" rx="8" fill="#ffffff" stroke="#e6e8ef"/>
+  <circle cx="220" cy="190" r="54" fill="#087f8c"/>
+  <circle cx="560" cy="190" r="54" fill="#b64b36"/>
+  <circle cx="900" cy="190" r="54" fill="#2d6a4f"/>
+  <text x="149" y="308" fill="#111827" font-family="Arial" font-size="30" font-weight="700">日常生活</text>
+  <text x="493" y="308" fill="#111827" font-family="Arial" font-size="30" font-weight="700">科技研发</text>
+  <text x="833" y="308" fill="#111827" font-family="Arial" font-size="30" font-weight="700">未来工作</text>
+  <text x="112" y="370" fill="#475569" font-family="Arial" font-size="22">个人自动化</text>
+  <text x="452" y="370" fill="#475569" font-family="Arial" font-size="22">原型与测试</text>
+  <text x="792" y="370" fill="#475569" font-family="Arial" font-size="22">管理多个代理</text>
+</svg>

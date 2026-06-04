@@ -1,0 +1,32 @@
+{
+  "name": "codex-global-blog",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "content:update": "tsx scripts/update-content.ts"
+  },
+  "dependencies": {
+    "lucide-react": "^0.475.0",
+    "next": "^16.2.7",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@types/node": "^22.13.1",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "eslint": "^9.20.1",
+    "eslint-config-next": "^16.2.7",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
