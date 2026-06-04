@@ -7,6 +7,7 @@ export const siteConfig = {
   name: "Codex 全球教学博客",
   description: "中文主站，系统学习 Codex 与 AI 编程工具：教程、案例、工具对比和自动化内容更新。",
   defaultUrl: "https://codex-global-blog.vercel.app",
+  defaultAdSenseClient: "ca-pub-3023331294575844",
   locale: "zh-CN",
   languages: [
     { code: "zh", label: "中文", href: "/" },
@@ -26,7 +27,7 @@ export function getContactUrl() {
 }
 
 export function getAdSenseClient() {
-  return process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "";
+  return process.env.NEXT_PUBLIC_ADSENSE_CLIENT || siteConfig.defaultAdSenseClient;
 }
 
 export function getAdSenseSlot() {

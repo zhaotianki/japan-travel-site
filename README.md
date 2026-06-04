@@ -4,6 +4,12 @@
 
 Production URL: https://codex-global-blog.vercel.app
 
+Google AdSense client is configured by default:
+
+```text
+ca-pub-3023331294575844
+```
+
 ## 本地运行
 
 ```bash
