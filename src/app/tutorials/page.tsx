@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { AdUnit } from "@/components/AdUnit";
 import { Sidebar } from "@/components/Sidebar";
-import { getTutorialsByCategory, tutorialCatalog } from "@/content/tutorials";
+import { getTutorialsByCategory, getTutorialVisual, tutorialCatalog } from "@/content/tutorials";
 
 export const metadata: Metadata = {
   title: "50篇真实操作教程目录",
@@ -33,90 +34,98 @@ export default function TutorialsPage() {
               </div>
             </div>
             <div className="tutorial-list">
-              {articles.map((article) => (
-                <article key={article.slug} className="knowledge-card" id={article.slug}>
-                  <div className="meta-row">
-                    <span>{article.status}</span>
-                    <span>{article.sourceType}</span>
-                    <span>{article.updatedAt}</span>
-                  </div>
-                  <h3>{article.title}</h3>
-                  <p>{article.excerpt}</p>
-                  <div className="knowledge-columns">
-                    <section>
-                      <h4>安装前准备</h4>
-                      <ul className="plain-list">
-                        {article.prerequisites.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </section>
-                    <section>
-                      <h4>详细步骤</h4>
-                      <ol className="step-list">
-                        {article.steps.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ol>
-                    </section>
-                  </div>
-                  {article.sections ? (
-                    <div className="article-full">
-                      {article.sections.map((section) => (
-                        <section key={section.heading}>
-                          <h4>{section.heading}</h4>
-                          {section.body.map((paragraph) => (
-                            <p key={paragraph}>{paragraph}</p>
+              {articles.map((article) => {
+                const visual = getTutorialVisual(article);
+
+                return (
+                  <article key={article.slug} className="knowledge-card" id={article.slug}>
+                    <figure className="tutorial-visual">
+                      <Image src={visual.src} alt={visual.alt} width={1280} height={720} loading="lazy" />
+                      <figcaption>{visual.caption}</figcaption>
+                    </figure>
+                    <div className="meta-row">
+                      <span>{article.status}</span>
+                      <span>{article.sourceType}</span>
+                      <span>{article.updatedAt}</span>
+                    </div>
+                    <h3>{article.title}</h3>
+                    <p>{article.excerpt}</p>
+                    <div className="knowledge-columns">
+                      <section>
+                        <h4>安装前准备</h4>
+                        <ul className="plain-list">
+                          {article.prerequisites.map((item) => (
+                            <li key={item}>{item}</li>
                           ))}
-                        </section>
+                        </ul>
+                      </section>
+                      <section>
+                        <h4>详细步骤</h4>
+                        <ol className="step-list">
+                          {article.steps.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ol>
+                      </section>
+                    </div>
+                    {article.sections ? (
+                      <div className="article-full">
+                        {article.sections.map((section) => (
+                          <section key={section.heading}>
+                            <h4>{section.heading}</h4>
+                            {section.body.map((paragraph) => (
+                              <p key={paragraph}>{paragraph}</p>
+                            ))}
+                          </section>
+                        ))}
+                      </div>
+                    ) : null}
+                    <div className="knowledge-columns">
+                      <section>
+                        <h4>截图位置预留</h4>
+                        <ul className="plain-list">
+                          {article.screenshotSlots.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </section>
+                      <section>
+                        <h4>常见错误</h4>
+                        <ul className="plain-list">
+                          {article.commonErrors.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </section>
+                      <section>
+                        <h4>解决方案</h4>
+                        <ul className="plain-list">
+                          {article.solutions.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </section>
+                      <section>
+                        <h4>FAQ</h4>
+                        {article.faq.map((item) => (
+                          <p key={item.question}>
+                            <strong>{item.question}</strong>
+                            <br />
+                            {item.answer}
+                          </p>
+                        ))}
+                      </section>
+                    </div>
+                    <div className="source-list">
+                      {article.sources.map((source) => (
+                        <a key={source.url} href={source.url} target="_blank" rel="noreferrer">
+                          {source.label}
+                        </a>
                       ))}
                     </div>
-                  ) : null}
-                  <div className="knowledge-columns">
-                    <section>
-                      <h4>截图位置预留</h4>
-                      <ul className="plain-list">
-                        {article.screenshotSlots.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </section>
-                    <section>
-                      <h4>常见错误</h4>
-                      <ul className="plain-list">
-                        {article.commonErrors.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </section>
-                    <section>
-                      <h4>解决方案</h4>
-                      <ul className="plain-list">
-                        {article.solutions.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </section>
-                    <section>
-                      <h4>FAQ</h4>
-                      {article.faq.map((item) => (
-                        <p key={item.question}>
-                          <strong>{item.question}</strong>
-                          <br />
-                          {item.answer}
-                        </p>
-                      ))}
-                    </section>
-                  </div>
-                  <div className="source-list">
-                    {article.sources.map((source) => (
-                      <a key={source.url} href={source.url} target="_blank" rel="noreferrer">
-                        {source.label}
-                      </a>
-                    ))}
-                  </div>
-                </article>
-              ))}
+                  </article>
+                );
+              })}
             </div>
           </section>
         ))}

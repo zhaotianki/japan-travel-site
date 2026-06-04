@@ -21,6 +21,69 @@ export type Tutorial = {
   sections?: TutorialSection[];
 };
 
+export type TutorialVisual = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
+const categoryVisuals: Record<Tutorial["category"], TutorialVisual> = {
+  Codex: {
+    src: "/media/tutorials/codex-workflow.svg",
+    alt: "Codex 安装和项目运行流程示意图",
+    caption: "从本机环境检查，到 Codex 登录、读取项目、执行任务和验证结果。"
+  },
+  "Claude Code": {
+    src: "/media/tutorials/claude-code-terminal.svg",
+    alt: "Claude Code 终端安装和运行流程示意图",
+    caption: "用终端进入项目，完成登录、API 配置、任务执行和错误回看。"
+  },
+  ChatGPT: {
+    src: "/media/tutorials/chatgpt-api-key.svg",
+    alt: "ChatGPT 和 OpenAI API Key 申请流程示意图",
+    caption: "把账号、账单、项目、API Key、安全保存和本地验证拆开检查。"
+  },
+  MCP: {
+    src: "/media/tutorials/mcp-connection.svg",
+    alt: "MCP 客户端、Server 和工具连接示意图",
+    caption: "先确认客户端，再配置 MCP server、认证、工具列表和最小读操作。"
+  },
+  Agent: {
+    src: "/media/tutorials/agent-loop.svg",
+    alt: "Agent 从任务到验证的闭环示意图",
+    caption: "Agent 任务必须经过目标、权限、执行、日志、验证和复盘。"
+  },
+  Github: {
+    src: "/media/tutorials/github-branch.svg",
+    alt: "Github 分支、提交、推送和 PR 流程示意图",
+    caption: "使用独立分支、commit、push 和 PR，避免覆盖主分支。"
+  },
+  Vercel: {
+    src: "/media/tutorials/vercel-deploy.svg",
+    alt: "Vercel 部署 Next.js 的构建和上线流程示意图",
+    caption: "从本地 build，到 Vercel deploy、生产域名、sitemap 和 ads.txt 检查。"
+  },
+  联盟营销: {
+    src: "/media/tutorials/adsense-review.svg",
+    alt: "AdSense 审核和广告合规流程示意图",
+    caption: "广告收益需要生产域名、原创内容、隐私政策、ads.txt 和审核状态。"
+  },
+  实战案例: {
+    src: "/media/tutorials/real-case-log.svg",
+    alt: "真实操作记录和问题复盘示意图",
+    caption: "只记录可复查的命令、截图位置、错误、修复步骤和最终结果。"
+  }
+};
+
+export function getTutorialVisual(tutorial: Pick<Tutorial, "category" | "title">) {
+  const visual = categoryVisuals[tutorial.category];
+
+  return {
+    ...visual,
+    alt: `${tutorial.title}：${visual.alt}`
+  };
+}
+
 const requiredArticleShape = {
   screenshotSlots: ["准备环境截图", "安装命令截图", "配置完成截图", "首次运行成功截图"],
   faq: [

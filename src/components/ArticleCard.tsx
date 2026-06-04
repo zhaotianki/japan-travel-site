@@ -1,5 +1,6 @@
 import Link from "next/link";
-import type { Tutorial } from "@/content/tutorials";
+import Image from "next/image";
+import { getTutorialVisual, type Tutorial } from "@/content/tutorials";
 
 type ArticleCardProps = {
   tutorial: Tutorial;
@@ -7,8 +8,11 @@ type ArticleCardProps = {
 };
 
 export function ArticleCard({ tutorial, compact = false }: ArticleCardProps) {
+  const visual = getTutorialVisual(tutorial);
+
   return (
     <article className={compact ? "article-card compact" : "article-card"}>
+      <Image src={visual.src} alt={visual.alt} width={1280} height={720} loading="lazy" />
       <div className="article-body">
         <div className="meta-row">
           <span>{tutorial.category}</span>

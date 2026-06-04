@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Claude Code terminal setup</title>
+  <desc id="desc">Terminal based setup flow for Claude Code.</desc>
+  <rect width="1280" height="720" fill="#f8fafc"/>
+  <rect x="74" y="64" width="1132" height="592" rx="24" fill="#fff" stroke="#e2e8f0" stroke-width="3"/>
+  <text x="112" y="130" fill="#111827" font-family="Arial, sans-serif" font-size="42" font-weight="700">Claude Code 终端安装流程</text>
+  <rect x="112" y="190" width="670" height="360" rx="18" fill="#111827"/>
+  <circle cx="146" cy="224" r="9" fill="#ef4444"/><circle cx="174" cy="224" r="9" fill="#f59e0b"/><circle cx="202" cy="224" r="9" fill="#22c55e"/>
+  <text x="144" y="282" fill="#e5e7eb" font-family="Arial, sans-serif" font-size="24">$ cd my-project</text>
+  <text x="144" y="328" fill="#a7f3d0" font-family="Arial, sans-serif" font-size="24">$ claude</text>
+  <text x="144" y="374" fill="#93c5fd" font-family="Arial, sans-serif" font-size="24">login -> api config -> read project</text>
+  <text x="144" y="420" fill="#fde68a" font-family="Arial, sans-serif" font-size="24">run small task -> check diff</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="852" y="206" width="246" height="72" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+    <text x="884" y="252" fill="#111827" font-size="24" font-weight="700">账号登录</text>
+    <rect x="852" y="318" width="246" height="72" rx="12" fill="#ecfeff" stroke="#0891b2" stroke-width="3"/>
+    <text x="884" y="364" fill="#111827" font-size="24" font-weight="700">API 配置</text>
+    <rect x="852" y="430" width="246" height="72" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+    <text x="884" y="476" fill="#111827" font-size="24" font-weight="700">项目验证</text>
+  </g>
+</svg>

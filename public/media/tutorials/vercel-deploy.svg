@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Vercel deployment flow</title>
+  <desc id="desc">A deployment diagram from local build to production domain checks.</desc>
+  <rect width="1280" height="720" fill="#f8fafc"/>
+  <rect x="56" y="54" width="1168" height="612" rx="24" fill="#fff" stroke="#e2e8f0" stroke-width="3"/>
+  <text x="92" y="120" fill="#111827" font-family="Arial, sans-serif" font-size="44" font-weight="700">Vercel 部署 Next.js 全流程</text>
+  <text x="94" y="158" fill="#64748b" font-family="Arial, sans-serif" font-size="22">lint / build / deploy / alias / sitemap / ads.txt</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="94" y="222" width="238" height="280" rx="18" fill="#f1f5f9" stroke="#334155" stroke-width="3"/>
+    <text x="124" y="274" fill="#0f172a" font-size="28" font-weight="700">本地项目</text>
+    <text x="124" y="322" fill="#334155" font-size="21">npm run lint</text>
+    <text x="124" y="358" fill="#334155" font-size="21">npm run build</text>
+    <text x="124" y="394" fill="#334155" font-size="21">检查环境变量</text>
+    <rect x="442" y="222" width="238" height="280" rx="18" fill="#ecfeff" stroke="#0891b2" stroke-width="3"/>
+    <text x="472" y="274" fill="#0f172a" font-size="28" font-weight="700">Vercel CLI</text>
+    <text x="472" y="322" fill="#334155" font-size="21">vercel link</text>
+    <text x="472" y="358" fill="#334155" font-size="21">deploy --prod</text>
+    <text x="472" y="394" fill="#334155" font-size="21">查看 build logs</text>
+    <rect x="790" y="222" width="336" height="280" rx="18" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+    <text x="820" y="274" fill="#0f172a" font-size="28" font-weight="700">生产检查</text>
+    <text x="820" y="322" fill="#334155" font-size="21">https://domain.vercel.app</text>
+    <text x="820" y="358" fill="#334155" font-size="21">/sitemap.xml</text>
+    <text x="820" y="394" fill="#334155" font-size="21">/ads.txt</text>
+    <text x="820" y="430" fill="#334155" font-size="21">/api/contact</text>
+    <path d="M350 360h70" stroke="#111827" stroke-width="6" stroke-linecap="round"/>
+    <path d="M698 360h70" stroke="#111827" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="1144" cy="548" r="38" fill="#22c55e"/>
+    <path d="M1124 548l15 16 31-38" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

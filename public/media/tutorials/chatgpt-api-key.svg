@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">OpenAI API key setup</title>
+  <desc id="desc">A visual checklist for account, billing, project, API key, secure storage, and local verification.</desc>
+  <rect width="1280" height="720" fill="#f8fafc"/>
+  <rect x="62" y="58" width="1156" height="604" rx="24" fill="#fff" stroke="#e2e8f0" stroke-width="3"/>
+  <text x="96" y="126" fill="#111827" font-family="Arial, sans-serif" font-size="42" font-weight="700">ChatGPT / OpenAI API Key 申请</text>
+  <g font-family="Arial, sans-serif" font-size="22">
+    <rect x="104" y="206" width="178" height="112" rx="16" fill="#eef2ff" stroke="#4f46e5" stroke-width="3"/>
+    <text x="136" y="272" fill="#111827" font-weight="700">账号</text>
+    <rect x="326" y="206" width="178" height="112" rx="16" fill="#ecfeff" stroke="#0891b2" stroke-width="3"/>
+    <text x="358" y="272" fill="#111827" font-weight="700">账单</text>
+    <rect x="548" y="206" width="178" height="112" rx="16" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+    <text x="580" y="272" fill="#111827" font-weight="700">项目</text>
+    <rect x="770" y="206" width="178" height="112" rx="16" fill="#fff7ed" stroke="#f97316" stroke-width="3"/>
+    <text x="802" y="272" fill="#111827" font-weight="700">API Key</text>
+    <rect x="992" y="206" width="178" height="112" rx="16" fill="#fef2f2" stroke="#dc2626" stroke-width="3"/>
+    <text x="1024" y="272" fill="#111827" font-weight="700">安全保存</text>
+    <rect x="196" y="424" width="888" height="112" rx="18" fill="#111827"/>
+    <text x="238" y="489" fill="#e5e7eb" font-size="24">$ export OPENAI_API_KEY=...</text>
+    <text x="238" y="524" fill="#a7f3d0" font-size="20">最小请求验证，不把 Key 提交到 GitHub</text>
+  </g>
+</svg>

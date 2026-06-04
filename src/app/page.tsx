@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BookOpen, CheckCircle2, ListChecks } from "lucide-react";
 import { AdUnit } from "@/components/AdUnit";
 import { ArticleCard } from "@/components/ArticleCard";
 import { Sidebar } from "@/components/Sidebar";
-import { tutorialCatalog, getPublishedTutorials, getTutorialsByCategory } from "@/content/tutorials";
+import { tutorialCatalog, getPublishedTutorials, getTutorialsByCategory, getTutorialVisual } from "@/content/tutorials";
 import { getContentStats } from "@/lib/site";
 
 const goals = ["AI工具安装", "AI插件安装", "MCP配置", "Agent部署", "API申请", "Vercel部署", "Github管理"];
@@ -13,12 +14,14 @@ export default function HomePage() {
   const published = getPublishedTutorials();
   const byCategory = getTutorialsByCategory();
   const lead = published[0] ?? tutorialCatalog[0];
+  const leadVisual = getTutorialVisual(lead);
 
   return (
     <div className="home-layout">
       <div>
         <section className="hero-feed" aria-label="知识库首页">
-          <article className="lead-story no-media">
+          <article className="lead-story">
+            <Image src={leadVisual.src} alt={leadVisual.alt} width={1280} height={720} priority />
             <div className="lead-story-body">
               <div className="eyebrow">
                 <span>真实操作</span>
