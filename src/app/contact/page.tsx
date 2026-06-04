@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { BookOpenCheck, MessageCircle, Send, ShieldCheck, Wrench } from "lucide-react";
 import { AdUnit } from "@/components/AdUnit";
-import { getContactUrl } from "@/lib/site";
+import { ContactForm } from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "提交问题",
@@ -10,8 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const contactUrl = getContactUrl();
-  const isConfigured = contactUrl !== "/contact";
   const cooperationItems = [
     {
       icon: MessageCircle,
@@ -58,20 +55,14 @@ export default function ContactPage() {
           );
         })}
       </div>
-      {isConfigured ? (
-        <Link href={contactUrl} className="contact-button">
-          <MessageCircle size={18} aria-hidden="true" />
-          打开提交入口
-        </Link>
-      ) : (
-        <div className="side-panel">
-          <h2>
-            <Send size={18} aria-hidden="true" />
-            联系链接未配置
-          </h2>
-          <p>设置 `NEXT_PUBLIC_CONTACT_URL` 后，页面顶部和侧栏按钮会自动指向你的表单、群链接或私信入口。</p>
-        </div>
-      )}
+      <section className="side-panel contact-form-panel">
+        <h2>
+          <Send size={18} aria-hidden="true" />
+          发送到站长邮箱
+        </h2>
+        <p>提交后服务器会调用邮件服务发送。上线前需要在部署平台设置 `RESEND_API_KEY` 和 `CONTACT_TO_EMAIL`。</p>
+        <ContactForm />
+      </section>
     </article>
   );
 }

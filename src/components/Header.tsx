@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { MessageCircle, Search, Sparkles } from "lucide-react";
-import { getContactUrl, siteConfig } from "@/lib/site";
+import { Search, Sparkles } from "lucide-react";
+import { siteConfig } from "@/lib/site";
+import { ContactModal } from "./ContactModal";
 
 export function Header() {
   return (
@@ -28,10 +29,7 @@ export function Header() {
         <Link href="/tutorials" className="icon-link" aria-label="搜索教程">
           <Search size={18} aria-hidden="true" />
         </Link>
-        <Link href={getContactUrl()} className="contact-button">
-          <MessageCircle size={18} aria-hidden="true" />
-          提交问题
-        </Link>
+        <ContactModal />
       </div>
     </header>
   );

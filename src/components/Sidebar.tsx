@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { BookOpen, Crown, Mail, RadioTower } from "lucide-react";
-import { getAffiliateLinks, getContactUrl } from "@/lib/site";
+import { getAffiliateLinks } from "@/lib/site";
 import { AdUnit } from "./AdUnit";
+import { ContactModal } from "./ContactModal";
 
 export function Sidebar() {
   const affiliateLinks = getAffiliateLinks();
@@ -15,9 +15,7 @@ export function Sidebar() {
           提交问题
         </h2>
         <p>只收集真实安装、部署、API、MCP 和 Agent 使用过程中的错误与解决方案。</p>
-        <Link href={getContactUrl()} className="wide-button">
-          提交问题
-        </Link>
+        <ContactModal className="wide-button" label="提交问题" />
       </section>
       <section className="side-panel">
         <h2>

@@ -33,7 +33,20 @@ npm run dev
 - `NEXT_PUBLIC_CONTACT_URL`
 - `NEXT_PUBLIC_AFFILIATE_LINKS`
 - `NEXT_PUBLIC_SPONSOR_ADS`
+- `RESEND_API_KEY`
+- `CONTACT_TO_EMAIL`
+- `CONTACT_FROM_EMAIL`
 
 配置 `NEXT_PUBLIC_ADSENSE_CLIENT` 和 `NEXT_PUBLIC_ADSENSE_SLOT` 后，固定广告位会使用 Google AdSense；只配置 client 时仍会加载 AdSense Auto Ads 脚本。
 
 AdSense 需要先通过 Google 审核。面向 EEA、英国、瑞士用户投放广告时，需要使用 Google 认证 CMP 或 AdSense consent message。
+
+## 问题提交邮箱
+
+顶部“提交问题”和 `/contact` 页面会调用 `/api/contact`。生产环境需要配置：
+
+- `RESEND_API_KEY`：Resend 邮件 API Key。
+- `CONTACT_TO_EMAIL`：站长收件邮箱。
+- `CONTACT_FROM_EMAIL`：发件地址，建议使用已经在 Resend 验证过的域名邮箱。
+
+没有配置邮件环境变量时，接口会返回配置缺失，不会假装发送成功。
