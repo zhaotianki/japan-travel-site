@@ -18,6 +18,23 @@ function getParam(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
 }
 
+function getCommandExample(category: string) {
+  const examples: Record<string, string[]> = {
+    Codex: ["node --version", "npm --version", "git status --short", "codex"],
+    "Claude Code": ["node --version", "git status --short", "claude"],
+    ChatGPT: ["echo $OPENAI_API_KEY", "curl https://api.openai.com/v1/models"],
+    MCP: ["node --version", "npx @modelcontextprotocol/inspector"],
+    Agent: ["git status --short", "npm run build"],
+    Github: ["git remote -v", "git status --short", "git push origin HEAD"],
+    Vercel: ["npm run build", "npx vercel deploy --prod"],
+    相关插件: ["code --list-extensions", "code --install-extension <publisher.extension>"],
+    联盟营销: ["curl https://your-domain.com/ads.txt"],
+    实战案例: ["npm run lint", "npm run build", "git diff --stat"]
+  };
+
+  return examples[category] ?? ["确认版本", "执行最小验证", "保存日志"];
+}
+
 export default async function TutorialsPage({ searchParams }: TutorialsPageProps) {
   const params = (await searchParams) ?? {};
   const byCategory = getTutorialsByCategory();
@@ -70,35 +87,86 @@ export default async function TutorialsPage({ searchParams }: TutorialsPageProps
               const visual = getTutorialVisual(article);
 
               return (
-                <article key={article.slug} className="knowledge-card" id={article.slug}>
-                  <figure className="tutorial-visual">
-                    <Image src={visual.src} alt={visual.alt} width={1280} height={720} loading="lazy" />
-                    <figcaption>{visual.caption}</figcaption>
-                  </figure>
-                  <div className="meta-row">
-                    <span>{article.status}</span>
-                    <span>{article.sourceType}</span>
-                    <span>{article.updatedAt}</span>
-                  </div>
-                  <h3>{article.title}</h3>
-                  <p>{article.excerpt}</p>
-                  <div className="knowledge-columns">
-                    <section>
-                      <h4>安装前准备</h4>
-                      <ul className="plain-list">
-                        {article.prerequisites.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </section>
-                    <section>
-                      <h4>详细步骤</h4>
-                      <ol className="step-list">
-                        {article.steps.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ol>
-                    </section>
+                <article key={article.slug} className="knowledge-card docs-article" id={article.slug}>
+                  <div className="docs-layout">
+                    <aside className="docs-mini-nav" aria-label={`${article.title} 文章目录`}>
+                      <a href={`#${article.slug}`}>Overview</a>
+                      <a href={`#${article.slug}-prepare`}>准备</a>
+                      <a href={`#${article.slug}-steps`}>步骤</a>
+                      <a href={`#${article.slug}-commands`}>命令</a>
+                      <a href={`#${article.slug}-errors`}>排错</a>
+                      <a href={`#${article.slug}-faq`}>FAQ</a>
+                    </aside>
+                    <div>
+                      <div className="docs-topline">
+                        <div className="meta-row">
+                          <span>{article.status}</span>
+                          <span>{article.sourceType}</span>
+                          <span>{article.updatedAt}</span>
+                        </div>
+                        <a className="copy-page-link" href={`#${article.slug}`}>
+                          Copy page
+                        </a>
+                      </div>
+                      <h3>{article.title}</h3>
+                      <p className="docs-lead">{article.excerpt}</p>
+                      <figure className="tutorial-visual">
+                        <Image src={visual.src} alt={visual.alt} width={1280} height={720} loading="lazy" />
+                        <figcaption>{visual.caption}</figcaption>
+                      </figure>
+                      <div className="docs-callout info">
+                        <strong>Documentation rule</strong>
+                        <p>本文按 Quickstart 文档格式整理：先准备环境，再按步骤执行，最后检查命令输出、截图、错误和 FAQ。</p>
+                      </div>
+                      <section id={`${article.slug}-prepare`}>
+                        <h4>安装前准备</h4>
+                        <div className="doc-check-grid">
+                          {article.prerequisites.map((item) => (
+                            <div key={item} className="doc-check-item">
+                              {item}
+                            </div>
+                          ))}
+                        </div>
+                      </section>
+                      <section id={`${article.slug}-steps`}>
+                        <h4>Quickstart steps</h4>
+                        <div className="doc-step-list">
+                          {article.steps.map((item, index) => (
+                            <section key={item} className="doc-step">
+                              <span>{index + 1}</span>
+                              <div>
+                                <h5>{item}</h5>
+                                <p>完成后记录截图位置和验证结果；如果失败，保留完整错误文本，不要只保存最后一行。</p>
+                              </div>
+                            </section>
+                          ))}
+                        </div>
+                      </section>
+                      <section id={`${article.slug}-commands`}>
+                        <h4>命令与验证</h4>
+                        <pre className="command-block">
+                          <code>{getCommandExample(article.category).join("\n")}</code>
+                        </pre>
+                        <div className="docs-table" role="table" aria-label="验证项目">
+                          <div role="row">
+                            <strong role="cell">检查项</strong>
+                            <strong role="cell">通过标准</strong>
+                          </div>
+                          <div role="row">
+                            <span role="cell">版本</span>
+                            <span role="cell">能输出当前版本或登录状态</span>
+                          </div>
+                          <div role="row">
+                            <span role="cell">权限</span>
+                            <span role="cell">只授予完成教程所需的最小权限</span>
+                          </div>
+                          <div role="row">
+                            <span role="cell">结果</span>
+                            <span role="cell">有截图、日志或线上 URL 可以复查</span>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
                   </div>
                   {article.sections ? (
                     <div className="article-full">
@@ -112,7 +180,7 @@ export default async function TutorialsPage({ searchParams }: TutorialsPageProps
                       ))}
                     </div>
                   ) : null}
-                  <div className="knowledge-columns">
+                  <div className="docs-bottom-grid">
                     <section>
                       <h4>截图位置预留</h4>
                       <ul className="plain-list">
@@ -121,8 +189,12 @@ export default async function TutorialsPage({ searchParams }: TutorialsPageProps
                         ))}
                       </ul>
                     </section>
-                    <section>
+                    <section id={`${article.slug}-errors`}>
                       <h4>常见错误</h4>
+                      <div className="docs-callout warning">
+                        <strong>WARNING</strong>
+                        <p>如果遇到下面错误，先保存完整命令输出，再按解决方案逐项排查。</p>
+                      </div>
                       <ul className="plain-list">
                         {article.commonErrors.map((item) => (
                           <li key={item}>{item}</li>
@@ -137,14 +209,13 @@ export default async function TutorialsPage({ searchParams }: TutorialsPageProps
                         ))}
                       </ul>
                     </section>
-                    <section>
+                    <section id={`${article.slug}-faq`}>
                       <h4>FAQ</h4>
                       {article.faq.map((item) => (
-                        <p key={item.question}>
-                          <strong>{item.question}</strong>
-                          <br />
-                          {item.answer}
-                        </p>
+                        <details key={item.question} className="docs-faq">
+                          <summary>{item.question}</summary>
+                          <p>{item.answer}</p>
+                        </details>
                       ))}
                     </section>
                   </div>
