@@ -2,6 +2,8 @@
 
 中文主站的 Codex 与 AI 编程教学博客，使用 Next.js App Router、React 和 TypeScript。
 
+Production URL: https://codex-global-blog.vercel.app
+
 ## 本地运行
 
 ```bash
