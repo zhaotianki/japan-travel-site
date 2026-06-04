@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getTutorialVisual, type Tutorial } from "@/content/tutorials";
+import { getTutorialUrl, getTutorialVisual, type Tutorial } from "@/content/tutorials";
 
 type ArticleCardProps = {
   tutorial: Tutorial;
@@ -20,7 +20,7 @@ export function ArticleCard({ tutorial, compact = false }: ArticleCardProps) {
           <span>{tutorial.sourceType}</span>
         </div>
         <h3>
-          <Link href={`/tutorials#${tutorial.slug}`}>{tutorial.title}</Link>
+          <Link href={getTutorialUrl(tutorial)}>{tutorial.title}</Link>
         </h3>
         <p>{tutorial.excerpt}</p>
         <ul className="plain-list">

@@ -28,18 +28,18 @@ export default function HomePage() {
                 <span>安装部署</span>
                 <span>Agent知识库</span>
               </div>
-              <h1>AI实战安装教程与Agent知识库</h1>
-              <p>帮助零基础用户完成 AI 工具安装、插件安装、MCP 配置、Agent 部署、API 申请、Vercel 部署和 Github 管理。目录可以先发布；正文必须来自可复现操作流程。</p>
+              <h1>AI完整教程首页</h1>
+              <p>帮助零基础用户完成 AI 工具安装、插件安装、MCP 配置、Agent 部署、API 申请、Vercel 部署、Github 管理和相关插件配置。每个专区 50 篇教程，每页 10 篇。</p>
               <Link href="/tutorials" className="contact-button">
                 <BookOpen size={18} aria-hidden="true" />
-                查看50篇目录
+                查看AI完整教程
               </Link>
             </div>
           </article>
           <div className="stats-panel" aria-label="站点数据">
             <div className="stat-tile">
               <strong>{stats.tutorials}</strong>
-              <span>已生成教程目录</span>
+              <span>已生成教程条目</span>
             </div>
             <div className="stat-tile">
               <strong>{stats.published}</strong>
@@ -47,11 +47,11 @@ export default function HomePage() {
             </div>
             <div className="stat-tile">
               <strong>{stats.targetTutorials}</strong>
-              <span>目标从安装到跑起来教程</span>
+              <span>图文教程总目标</span>
             </div>
             <div className="stat-tile">
-              <strong>7</strong>
-              <span>零基础核心目标</span>
+              <strong>10</strong>
+              <span>教程导航专区</span>
             </div>
           </div>
         </section>
@@ -97,12 +97,12 @@ export default function HomePage() {
           <div className="section-heading">
             <div>
               <h2>专区目录</h2>
-              <p>先生成 50 篇目录，再逐篇补充 2000 字以上真实操作正文。</p>
+              <p>10 个专区，每个专区 50 篇文章；进入教程页后按每页 10 篇分页查看。</p>
             </div>
           </div>
           <div className="category-grid">
             {Object.entries(byCategory).map(([category, articles]) => (
-              <Link key={category} href={`/tutorials#${category}`} className="category-card">
+              <Link key={category} href={`/tutorials?category=${encodeURIComponent(category)}&page=1`} className="category-card">
                 <div>
                   <span>{articles.length} 篇</span>
                   <h3>{category}</h3>

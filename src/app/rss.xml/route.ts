@@ -1,5 +1,5 @@
 import { learningResources } from "@/content/resources";
-import { tutorialCatalog } from "@/content/tutorials";
+import { getTutorialUrl, tutorialCatalog } from "@/content/tutorials";
 import { getSiteUrl, siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -17,7 +17,7 @@ export function GET() {
   const siteUrl = getSiteUrl();
   const tutorialItems = tutorialCatalog.map((tutorial) => ({
     title: tutorial.title,
-    url: `${siteUrl}/tutorials#${tutorial.slug}`,
+    url: `${siteUrl}${getTutorialUrl(tutorial)}`,
     description: tutorial.excerpt,
     date: tutorial.updatedAt
   }));

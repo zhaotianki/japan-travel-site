@@ -55,7 +55,7 @@ export function Sidebar() {
           <RadioTower size={18} aria-hidden="true" />
           更新节奏
         </h2>
-        <p>先完成 50 篇目录，再逐篇补充可复现的 2000 字以上真实操作正文。</p>
+        <p>10 个专区每区 50 篇，每页 10 篇；目录会逐篇补充可复现的 2000 字以上真实操作正文。</p>
       </section>
     </aside>
   );

@@ -6,7 +6,7 @@ export type TutorialSection = {
 export type Tutorial = {
   slug: string;
   title: string;
-  category: "Codex" | "Claude Code" | "ChatGPT" | "MCP" | "Agent" | "Github" | "Vercel" | "联盟营销" | "实战案例";
+  category: TutorialCategory;
   status: "已发布" | "目录";
   updatedAt: string;
   sourceType: "真实操作" | "官方文档整理";
@@ -20,6 +20,18 @@ export type Tutorial = {
   sources: { label: string; url: string }[];
   sections?: TutorialSection[];
 };
+
+export type TutorialCategory =
+  | "Codex"
+  | "Claude Code"
+  | "ChatGPT"
+  | "MCP"
+  | "Agent"
+  | "Github"
+  | "Vercel"
+  | "相关插件"
+  | "联盟营销"
+  | "实战案例";
 
 export type TutorialVisual = {
   src: string;
@@ -63,6 +75,11 @@ const categoryVisuals: Record<Tutorial["category"], TutorialVisual> = {
     alt: "Vercel 部署 Next.js 的构建和上线流程示意图",
     caption: "从本地 build，到 Vercel deploy、生产域名、sitemap 和 ads.txt 检查。"
   },
+  相关插件: {
+    src: "/media/tutorials/plugins-toolbox.svg",
+    alt: "AI 插件安装、授权和验证流程示意图",
+    caption: "插件教程重点检查安装来源、权限范围、配置位置、最小验证和卸载回滚。"
+  },
   联盟营销: {
     src: "/media/tutorials/adsense-review.svg",
     alt: "AdSense 审核和广告合规流程示意图",
@@ -91,6 +108,8 @@ const requiredArticleShape = {
     { question: "如果官方安装命令变化怎么办？", answer: "优先以文章内的官方来源链接为准，并在更新时修订命令。" }
   ]
 };
+
+export const tutorialPageSize = 10;
 
 export const tutorials: Tutorial[] = [
   {
@@ -338,68 +357,167 @@ export const tutorials: Tutorial[] = [
   }
 ];
 
-const moreTitles: Array<[Tutorial["category"], string, string]> = [
-  ["Codex", "Skills怎么安装", "安装和验证 Codex Skills 的真实流程"],
-  ["Codex", "MCP怎么安装到Codex", "把 MCP server 接入 Codex 的流程"],
-  ["Codex", "给Codex的终极提示词", "真实项目中可执行的任务提示词结构"],
-  ["Claude Code", "Claude Code API配置", "Claude Code 与 Anthropic API 的配置检查"],
-  ["Claude Code", "Claude Code收费说明", "按官方价格页理解订阅和用量"],
-  ["Claude Code", "Claude Code实战案例：修复构建失败", "用真实项目构建错误做修复流程"],
-  ["ChatGPT", "ChatGPT Plus购买教程", "购买前准备、地区限制和账单检查"],
-  ["ChatGPT", "GPT API申请教程", "Platform 项目、账单和 API Key 申请"],
-  ["ChatGPT", "Token是什么", "用真实 API 调用解释 token、上下文和费用"],
-  ["ChatGPT", "API Key怎么获取", "创建、保存、轮换和撤销 API Key"],
-  ["MCP", "Playwright MCP安装", "安装并验证浏览器自动化 MCP"],
-  ["MCP", "Github MCP安装", "安装并验证 GitHub MCP 权限"],
-  ["MCP", "Browser MCP安装", "浏览器工具 MCP 安装与最小测试"],
-  ["MCP", "MCP安装踩坑记录", "server、client、权限和日志排错"],
-  ["Agent", "Pi Agent安装与运行", "Pi Agent 的安装前检查和运行验证"],
-  ["Agent", "OpenAI Codex Agent实战", "Codex 作为 Agent 的任务闭环"],
-  ["Agent", "Cursor Agent安装与运行", "Cursor Agent 项目操作流程"],
-  ["Agent", "Windsurf Agent安装与运行", "Windsurf Agent 项目操作流程"],
-  ["Github", "GitHub新建仓库全过程", "从创建仓库到首次 push"],
-  ["Github", "GitHub Pull Request实战", "分支、PR、review 和 merge"],
-  ["Github", "GitHub Actions部署检查", "CI 安装依赖、构建和失败日志"],
-  ["Vercel", "Vercel绑定Github仓库", "Git 集成和自动部署"],
-  ["Vercel", "Vercel环境变量配置", "生产、预览、本地变量区别"],
-  ["Vercel", "Vercel自定义域名绑定", "DNS、CNAME、HTTPS 验证"],
-  ["Vercel", "Vercel部署失败排查", "构建日志和依赖错误处理"],
-  ["联盟营销", "Google AdSense脚本安装", "把 AdSense 脚本加入 Next.js"],
-  ["联盟营销", "ads.txt配置教程", "publisher ID 和线上验证"],
-  ["联盟营销", "隐私政策怎么写", "广告站点必须公开说明的数据使用"],
-  ["联盟营销", "联盟链接nofollow sponsored配置", "合规标注联盟链接"],
-  ["实战案例", "本站从本地到Vercel部署记录", "基于本站真实命令记录"],
-  ["实战案例", "本地Next.js项目创建全过程", "从 package.json 到 build"],
-  ["实战案例", "GitHub独立分支保存项目", "不覆盖 main 的安全推送"],
-  ["实战案例", "AdSense脚本接入本站记录", "ca-pub、layout 和 ads.txt"],
-  ["Codex", "Codex审查代码流程", "让 Codex 找 bug、跑测试、输出风险"],
-  ["Codex", "Codex调试Next.js构建失败", "真实构建日志的排查步骤"],
-  ["Claude Code", "Claude Code与Codex区别", "基于安装、权限、终端工作流比较"],
-  ["ChatGPT", "ChatGPT生成脚本后如何本地运行", "从代码到终端验证"],
-  ["MCP", "MCP权限安全检查清单", "避免过度授权和敏感数据泄露"],
-  ["Agent", "Agent部署前环境检查", "Node、Git、账号、权限和日志"],
-  ["Vercel", "Vercel Cron定时任务入门", "定时运行任务的配置前提"]
+export const tutorialCategories: TutorialCategory[] = [
+  "Codex",
+  "Claude Code",
+  "ChatGPT",
+  "MCP",
+  "Agent",
+  "Github",
+  "Vercel",
+  "相关插件",
+  "联盟营销",
+  "实战案例"
 ];
 
-export const tutorialCatalog: Tutorial[] = [
-  ...tutorials,
-  ...moreTitles.map(([category, title, excerpt], index) => ({
-    slug: `${category.toLowerCase().replaceAll(" ", "-")}-${index + 1}`,
+const categoryTopicSeeds: Record<TutorialCategory, Array<[string, string]>> = {
+  Codex: [
+    ["Skills怎么安装", "安装和验证 Codex Skills 的真实流程"],
+    ["MCP怎么安装到Codex", "把 MCP server 接入 Codex 的流程"],
+    ["给Codex的终极提示词", "真实项目中可执行的任务提示词结构"],
+    ["Codex审查代码流程", "让 Codex 找 bug、跑测试、输出风险"],
+    ["Codex调试Next.js构建失败", "真实构建日志的排查步骤"]
+  ],
+  "Claude Code": [
+    ["Claude Code API配置", "Claude Code 与 Anthropic API 的配置检查"],
+    ["Claude Code收费说明", "按官方价格页理解订阅和用量"],
+    ["Claude Code实战案例：修复构建失败", "用真实项目构建错误做修复流程"],
+    ["Claude Code与Codex区别", "基于安装、权限、终端工作流比较"],
+    ["Claude Code项目初始化", "从空项目到第一次任务执行"]
+  ],
+  ChatGPT: [
+    ["ChatGPT Plus购买教程", "购买前准备、地区限制和账单检查"],
+    ["GPT API申请教程", "Platform 项目、账单和 API Key 申请"],
+    ["Token是什么", "用真实 API 调用解释 token、上下文和费用"],
+    ["API Key怎么获取", "创建、保存、轮换和撤销 API Key"],
+    ["ChatGPT生成脚本后如何本地运行", "从代码到终端验证"]
+  ],
+  MCP: [
+    ["Playwright MCP安装", "安装并验证浏览器自动化 MCP"],
+    ["Github MCP安装", "安装并验证 GitHub MCP 权限"],
+    ["Browser MCP安装", "浏览器工具 MCP 安装与最小测试"],
+    ["MCP安装踩坑记录", "server、client、权限和日志排错"],
+    ["MCP权限安全检查清单", "避免过度授权和敏感数据泄露"]
+  ],
+  Agent: [
+    ["Pi Agent安装与运行", "Pi Agent 的安装前检查和运行验证"],
+    ["OpenAI Codex Agent实战", "Codex 作为 Agent 的任务闭环"],
+    ["Cursor Agent安装与运行", "Cursor Agent 项目操作流程"],
+    ["Windsurf Agent安装与运行", "Windsurf Agent 项目操作流程"],
+    ["Agent部署前环境检查", "Node、Git、账号、权限和日志"]
+  ],
+  Github: [
+    ["GitHub新建仓库全过程", "从创建仓库到首次 push"],
+    ["GitHub Pull Request实战", "分支、PR、review 和 merge"],
+    ["GitHub Actions部署检查", "CI 安装依赖、构建和失败日志"],
+    ["Github连接Codex", "GitHub remote、branch、commit、push、PR 与 Codex 工作流"],
+    ["GitHub权限与Token配置", "账号权限、token、SSH 和 HTTPS 登录排查"]
+  ],
+  Vercel: [
+    ["Vercel绑定Github仓库", "Git 集成和自动部署"],
+    ["Vercel环境变量配置", "生产、预览、本地变量区别"],
+    ["Vercel自定义域名绑定", "DNS、CNAME、HTTPS 验证"],
+    ["Vercel部署失败排查", "构建日志和依赖错误处理"],
+    ["Vercel Cron定时任务入门", "定时运行任务的配置前提"]
+  ],
+  相关插件: [
+    ["VS Code插件安装教程", "安装、启用、禁用和排查 VS Code 插件"],
+    ["Chrome AI插件安装教程", "浏览器插件来源、权限和验证流程"],
+    ["Cursor插件配置教程", "在 Cursor 中安装插件并验证项目能力"],
+    ["Playwright插件实战", "安装浏览器测试插件并运行最小脚本"],
+    ["GitHub插件权限检查", "插件授权、撤销和安全范围检查"]
+  ],
+  联盟营销: [
+    ["Google AdSense脚本安装", "把 AdSense 脚本加入 Next.js"],
+    ["ads.txt配置教程", "publisher ID 和线上验证"],
+    ["隐私政策怎么写", "广告站点必须公开说明的数据使用"],
+    ["联盟链接nofollow sponsored配置", "合规标注联盟链接"],
+    ["AdSense审核前内容检查", "原创内容、导航、隐私页面和可访问性检查"]
+  ],
+  实战案例: [
+    ["本站从本地到Vercel部署记录", "基于本站真实命令记录"],
+    ["本地Next.js项目创建全过程", "从 package.json 到 build"],
+    ["GitHub独立分支保存项目", "不覆盖 main 的安全推送"],
+    ["AdSense脚本接入本站记录", "ca-pub、layout 和 ads.txt"],
+    ["联系表单邮件发送链路记录", "从弹窗表单到 API 再到邮件服务"]
+  ]
+};
+
+const categorySource: Record<TutorialCategory, { label: string; url: string }> = {
+  Codex: { label: "OpenAI Codex docs", url: "https://developers.openai.com/codex/overview" },
+  "Claude Code": { label: "Claude Code", url: "https://www.anthropic.com/claude-code" },
+  ChatGPT: { label: "OpenAI Platform", url: "https://platform.openai.com/docs" },
+  MCP: { label: "Model Context Protocol", url: "https://modelcontextprotocol.io/" },
+  Agent: { label: "Agent workflow notes", url: "https://developers.openai.com/codex/overview" },
+  Github: { label: "GitHub Docs", url: "https://docs.github.com/" },
+  Vercel: { label: "Vercel Docs", url: "https://vercel.com/docs" },
+  相关插件: { label: "VS Code Extension docs", url: "https://code.visualstudio.com/docs/editor/extension-marketplace" },
+  联盟营销: { label: "Google AdSense Help", url: "https://support.google.com/adsense/" },
+  实战案例: { label: "本站真实操作记录", url: "https://codex-global-blog.vercel.app/cases" }
+};
+
+function toSlug(value: string) {
+  return value
+    .toLowerCase()
+    .replaceAll("+", "plus")
+    .replaceAll("/", "-")
+    .replaceAll(" ", "-")
+    .replace(/[：:，,。()（）]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function createCatalogArticle(category: TutorialCategory, title: string, excerpt: string, index: number): Tutorial {
+  return {
+    slug: `${toSlug(category)}-${toSlug(title)}-${index + 1}`,
     title,
     category,
-    status: "目录" as const,
-    updatedAt: "2026-06-04",
-    sourceType: "官方文档整理" as const,
+    status: "目录",
+    updatedAt: "2026-06-05",
+    sourceType: category === "实战案例" ? "真实操作" : "官方文档整理",
     excerpt,
     prerequisites: ["官方账号或工具访问权限", "可联网电脑", "终端基础操作能力", "用于练习的测试项目"],
-    steps: ["确认官方文档", "准备账号和环境", "安装工具", "执行最小验证", "记录错误和解决方案"],
+    steps: ["确认官方来源和当前版本", "准备账号、权限和本地环境", "按步骤安装或配置工具", "执行最小验证任务", "保存截图、日志、错误和解决方案"],
     screenshotSlots: requiredArticleShape.screenshotSlots,
-    commonErrors: ["版本变化", "权限不足", "网络或代理失败", "配置写错位置"],
-    solutions: ["以官方文档为准", "使用最小权限", "保存命令输出", "先在测试项目验证"],
+    commonErrors: ["版本变化导致命令失效", "账号或 API 权限不足", "网络、代理或地区限制", "配置文件写错位置"],
+    solutions: ["以官方文档和当前版本为准", "使用最小权限完成第一次验证", "保存完整命令输出和截图", "先在测试项目中复现再迁移到真实项目"],
     faq: requiredArticleShape.faq,
-    sources: [{ label: "官方文档待核验", url: "https://docs.github.com/" }]
-  }))
-].slice(0, 50);
+    sources: [categorySource[category]],
+    sections: [
+      {
+        heading: "图文说明",
+        body: [
+          `本篇属于 ${category} 专区。配图展示从准备环境、安装配置、授权验证到错误复盘的主流程，正文会按同样顺序记录真实操作。`,
+          "正式发布前，会补齐可复现命令、截图位置、失败日志、解决方案和最终验证结果；目录状态不冒充已经完成的长文。"
+        ]
+      }
+    ]
+  };
+}
+
+function buildCategoryArticles(category: TutorialCategory) {
+  const existing = tutorials.filter((article) => article.category === category);
+  const seedArticles = categoryTopicSeeds[category].map(([title, excerpt], index) => createCatalogArticle(category, title, excerpt, index));
+  const unique = [...existing, ...seedArticles].filter(
+    (article, index, all) => all.findIndex((item) => item.title === article.title && item.category === article.category) === index
+  );
+
+  while (unique.length < 50) {
+    const next = unique.length + 1;
+    unique.push(
+      createCatalogArticle(
+        category,
+        `${category}从安装到跑起来教程 ${String(next).padStart(2, "0")}`,
+        `${category} 专区第 ${next} 篇：按准备、安装、配置、验证、截图、错误和 FAQ 记录完整操作。`,
+        next
+      )
+    );
+  }
+
+  return unique.slice(0, 50);
+}
+
+export const tutorialCatalog: Tutorial[] = tutorialCategories.flatMap((category) => buildCategoryArticles(category));
 
 export function getPublishedTutorials() {
   return tutorialCatalog.filter((article) => article.status === "已发布");
@@ -411,4 +529,13 @@ export function getTutorialsByCategory() {
     acc[article.category].push(article);
     return acc;
   }, {} as Record<Tutorial["category"], Tutorial[]>);
+}
+
+export function getTutorialUrl(article: Pick<Tutorial, "category" | "slug">) {
+  const byCategory = getTutorialsByCategory();
+  const categoryArticles = byCategory[article.category] ?? [];
+  const index = categoryArticles.findIndex((item) => item.slug === article.slug);
+  const page = index >= 0 ? Math.floor(index / tutorialPageSize) + 1 : 1;
+
+  return `/tutorials?category=${encodeURIComponent(article.category)}&page=${page}#${article.slug}`;
 }

@@ -66,7 +66,7 @@ export function getContentStats() {
   return {
     tutorials: tutorialCatalog.length,
     published: getPublishedTutorials().length,
-    targetTutorials: 100,
+    targetTutorials: tutorialCatalog.length,
     languages: siteConfig.languages.length
   };
 }
