@@ -10,7 +10,19 @@ type ContactFormProps = {
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
-const issueTypes = ["Codex", "Claude Code", "ChatGPT", "MCP", "Agent", "Github", "Vercel", "AdSense", "其他"];
+const issueTypes = ["Codex", "Claude Code", "ChatGPT", "MCP", "Agent", "Github", "Vercel", "Cursor", "Windsurf", "AdSense", "其他"];
+
+function isEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function focusField(form: HTMLFormElement, name: string) {
+  const field = form.elements.namedItem(name);
+
+  if (field instanceof HTMLElement) {
+    field.focus();
+  }
+}
 
 export function ContactForm({ compact = false, onSuccess }: ContactFormProps) {
   const [state, setState] = useState<SubmitState>("idle");
@@ -20,9 +32,51 @@ export function ContactForm({ compact = false, onSuccess }: ContactFormProps) {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries()) as Record<string, string>;
+    const name = payload.name?.trim() ?? "";
+    const email = payload.email?.trim() ?? "";
+    const issueType = payload.issueType?.trim() ?? "";
+    const title = payload.title?.trim() ?? "";
+    const details = payload.details?.trim() ?? "";
+
+    setMessage("");
+
+    if (name.length < 2) {
+      setState("error");
+      setMessage("请填写姓名，至少 2 个字符。");
+      focusField(form, "name");
+      return;
+    }
+
+    if (!isEmail(email)) {
+      setState("error");
+      setMessage("请填写有效邮箱，方便站长回复你。");
+      focusField(form, "email");
+      return;
+    }
+
+    if (!issueType) {
+      setState("error");
+      setMessage("请选择问题类型。");
+      focusField(form, "issueType");
+      return;
+    }
+
+    if (title.length < 6) {
+      setState("error");
+      setMessage("请填写问题标题，至少 6 个字符。");
+      focusField(form, "title");
+      return;
+    }
+
+    if (details.length < 40) {
+      setState("error");
+      setMessage("请把真实操作过程写完整，至少 40 个字符，包括你看到的报错或已经尝试过的方法。");
+      focusField(form, "details");
+      return;
+    }
 
     setState("submitting");
-    setMessage("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -30,7 +84,7 @@ export function ContactForm({ compact = false, onSuccess }: ContactFormProps) {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(Object.fromEntries(formData.entries()))
+        body: JSON.stringify(payload)
       });
       const result = (await response.json()) as { message?: string };
 
@@ -49,7 +103,7 @@ export function ContactForm({ compact = false, onSuccess }: ContactFormProps) {
   }
 
   return (
-    <form className={compact ? "contact-form compact" : "contact-form"} onSubmit={handleSubmit}>
+    <form className={compact ? "contact-form compact" : "contact-form"} onSubmit={handleSubmit} noValidate>
       <div className="form-grid">
         <label>
           <span>姓名</span>
@@ -115,7 +169,7 @@ export function ContactForm({ compact = false, onSuccess }: ContactFormProps) {
           {state === "submitting" ? "发送中" : "发送到站长邮箱"}
         </button>
         {message ? (
-          <p className={`form-status ${state}`}>
+          <p className={`form-status ${state}`} role={state === "error" ? "alert" : "status"} aria-live="polite">
             {state === "success" ? <CheckCircle2 size={16} aria-hidden="true" /> : null}
             {state === "error" ? <XCircle size={16} aria-hidden="true" /> : null}
             {message}
