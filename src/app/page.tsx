@@ -1,57 +1,57 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, BookOpen, CheckCircle2, ListChecks } from "lucide-react";
+import { ArrowRight, BookOpen, Clock3, ListChecks, Search } from "lucide-react";
 import { AdUnit } from "@/components/AdUnit";
 import { ArticleCard } from "@/components/ArticleCard";
 import { Sidebar } from "@/components/Sidebar";
-import { tutorialCatalog, getPublishedTutorials, getTutorialsByCategory, getTutorialVisual } from "@/content/tutorials";
+import { getLatestTutorials, getPopularTutorials, getTutorialsByCategory, tutorialCatalog } from "@/content/tutorials";
 import { getContentStats } from "@/lib/site";
 
-const goals = ["AI工具安装", "AI插件安装", "MCP配置", "Agent部署", "API申请", "Vercel部署", "Github管理"];
+const goals = ["AI工具安装", "MCP配置", "Agent部署", "API申请", "Vercel部署", "Github管理"];
 
 export default function HomePage() {
   const stats = getContentStats();
-  const published = getPublishedTutorials();
+  const latestTutorials = getLatestTutorials();
+  const popularTutorials = getPopularTutorials();
   const byCategory = getTutorialsByCategory();
-  const lead = published[0] ?? tutorialCatalog[0];
-  const leadVisual = getTutorialVisual(lead);
+  const latestUpdates = tutorialCatalog.slice(-6).reverse();
 
   return (
     <div className="home-layout">
       <div>
-        <section className="hero-feed" aria-label="知识库首页">
-          <article className="lead-story">
-            <Image src={leadVisual.src} alt={leadVisual.alt} width={1280} height={720} priority />
-            <div className="lead-story-body">
-              <div className="eyebrow">
-                <span>真实操作</span>
-                <span>安装部署</span>
-                <span>Agent知识库</span>
-              </div>
-              <h1>AI完整教程首页</h1>
-              <p>帮助零基础用户完成 AI 工具安装、插件安装、MCP 配置、Agent 部署、API 申请、Vercel 部署、Github 管理和相关插件配置。每个专区 50 篇教程，每页 10 篇。</p>
+        <section className="knowledge-hero" aria-label="知识库首页">
+          <div>
+            <div className="eyebrow">
+              <span>100篇目录</span>
+              <span>零基础</span>
+              <span>真实操作</span>
+            </div>
+            <h1>AI Agent 实战知识库</h1>
+            <p>
+              专注 Codex、Claude Code、ChatGPT、MCP、Github、Vercel、Cursor、Windsurf、Agent 和实战案例。当前先发布 100 篇真实教程目录，审核通过后逐篇补充图文正文。
+            </p>
+            <div className="hero-actions">
               <Link href="/tutorials" className="contact-button">
                 <BookOpen size={18} aria-hidden="true" />
-                查看AI完整教程
+                查看教程目录
+              </Link>
+              <Link href="/tutorials" className="icon-link">
+                <Search size={18} aria-hidden="true" />
+                全站搜索
               </Link>
             </div>
-          </article>
+          </div>
           <div className="stats-panel" aria-label="站点数据">
             <div className="stat-tile">
               <strong>{stats.tutorials}</strong>
-              <span>已生成教程条目</span>
-            </div>
-            <div className="stat-tile">
-              <strong>{stats.published}</strong>
-              <span>已发布真实操作正文</span>
-            </div>
-            <div className="stat-tile">
-              <strong>{stats.targetTutorials}</strong>
-              <span>图文教程总目标</span>
+              <span>待审核教程目录</span>
             </div>
             <div className="stat-tile">
               <strong>10</strong>
-              <span>教程导航专区</span>
+              <span>一级导航分类</span>
+            </div>
+            <div className="stat-tile">
+              <strong>{stats.languages}</strong>
+              <span>语言路径预留</span>
             </div>
           </div>
         </section>
@@ -61,34 +61,17 @@ export default function HomePage() {
         <section className="section-band">
           <div className="section-heading">
             <div>
-              <h2>零基础目标</h2>
-              <p>每个目标都拆成准备、安装、验证、错误处理和 FAQ，不发布无法复现的故事。</p>
-            </div>
-          </div>
-          <div className="resource-strip">
-            {goals.map((goal) => (
-              <div key={goal} className="resource-pill">
-                <span>目标</span>
-                <strong>{goal}</strong>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="section-band">
-          <div className="section-heading">
-            <div>
-              <h2>已发布真实操作正文</h2>
-              <p>这些文章已经包含功能介绍、准备、步骤、截图位、常见错误、解决方案和 FAQ。</p>
+              <h2>最新教程</h2>
+              <p>只展示目录，不把未写完的内容包装成正文。</p>
             </div>
             <Link href="/tutorials" className="source-link">
-              全部教程
+              全部目录
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
           <div className="article-grid">
-            {published.map((tutorial) => (
-              <ArticleCard key={tutorial.slug} tutorial={tutorial} compact={tutorial.slug !== lead.slug} />
+            {latestTutorials.slice(0, 4).map((tutorial) => (
+              <ArticleCard key={tutorial.slug} tutorial={tutorial} compact />
             ))}
           </div>
         </section>
@@ -96,15 +79,51 @@ export default function HomePage() {
         <section className="section-band">
           <div className="section-heading">
             <div>
-              <h2>专区目录</h2>
-              <p>10 个专区，每个专区 50 篇文章；进入教程页后按每页 10 篇分页查看。</p>
+              <h2>热门教程</h2>
+              <p>优先展示新手最常用的安装、API、部署和 Agent 入门目录。</p>
+            </div>
+          </div>
+          <div className="resource-strip">
+            {popularTutorials.slice(0, 6).map((tutorial) => (
+              <Link key={tutorial.slug} href={`/tutorials?category=${encodeURIComponent(tutorial.category)}&page=1#${tutorial.slug}`} className="resource-pill">
+                <span>{tutorial.category} / {tutorial.difficulty}</span>
+                <strong>{tutorial.title}</strong>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-band">
+          <div className="section-heading">
+            <div>
+              <h2>最新更新</h2>
+              <p>目录更新时间和审核状态集中展示，方便后续逐篇补正文。</p>
+            </div>
+          </div>
+          <div className="update-list">
+            {latestUpdates.map((tutorial) => (
+              <Link key={tutorial.slug} href={`/tutorials?category=${encodeURIComponent(tutorial.category)}&page=1#${tutorial.slug}`} className="update-row">
+                <Clock3 size={17} aria-hidden="true" />
+                <span>{tutorial.updatedAt}</span>
+                <strong>{tutorial.title}</strong>
+                <em>{tutorial.status}</em>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-band">
+          <div className="section-heading">
+            <div>
+              <h2>工具分类</h2>
+              <p>10 个一级导航，每类 10 篇目录。</p>
             </div>
           </div>
           <div className="category-grid">
             {Object.entries(byCategory).map(([category, articles]) => (
               <Link key={category} href={`/tutorials?category=${encodeURIComponent(category)}&page=1`} className="category-card">
                 <div>
-                  <span>{articles.length} 篇</span>
+                  <span>{articles.length} 篇目录</span>
                   <h3>{category}</h3>
                 </div>
                 <ListChecks size={22} aria-hidden="true" />
@@ -116,14 +135,14 @@ export default function HomePage() {
         <section className="section-band">
           <div className="section-heading">
             <div>
-              <h2>正文硬性结构</h2>
-              <p>任何发布为正文的文章都必须满足这些栏目，目录条目不会伪装成已完成教程。</p>
+              <h2>真实教程标准</h2>
+              <p>目录审核通过后，每篇正文必须补齐这些栏目。</p>
             </div>
           </div>
           <div className="check-grid">
-            {["功能介绍", "安装前准备", "详细步骤", "截图位置预留", "常见错误", "解决方案", "FAQ"].map((item) => (
+            {goals.map((item) => (
               <div key={item} className="check-item">
-                <CheckCircle2 size={18} aria-hidden="true" />
+                <ListChecks size={18} aria-hidden="true" />
                 {item}
               </div>
             ))}

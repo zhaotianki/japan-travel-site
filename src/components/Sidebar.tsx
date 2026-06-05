@@ -20,11 +20,11 @@ export function Sidebar() {
       <section className="side-panel">
         <h2>
           <Crown size={18} aria-hidden="true" />
-          网站规则
+          审核规则
         </h2>
         <ul className="plain-list">
           <li>不发布虚构案例</li>
-          <li>不把目录当正文</li>
+          <li>目录不冒充正文</li>
           <li>每篇正文保留来源</li>
           <li>步骤必须能复现</li>
           <li>错误必须给解决方案</li>
@@ -33,7 +33,7 @@ export function Sidebar() {
       <section className="side-panel">
         <h2>
           <BookOpen size={18} aria-hidden="true" />
-          内容格式
+          正文格式
         </h2>
         {affiliateLinks.length > 0 ? (
           <ul className="plain-list">
@@ -47,7 +47,7 @@ export function Sidebar() {
             ))}
           </ul>
         ) : (
-          <p>每篇教程包含功能介绍、准备、步骤、截图位置、常见错误、解决方案和 FAQ。</p>
+          <p>目录审核通过后，每篇教程必须包含简介、安装前准备、三步操作、常见错误、解决方案、FAQ 和相关教程。</p>
         )}
       </section>
       <section className="side-panel">
@@ -55,7 +55,7 @@ export function Sidebar() {
           <RadioTower size={18} aria-hidden="true" />
           更新节奏
         </h2>
-        <p>10 个专区每区 50 篇，每页 10 篇；目录会逐篇补充可复现的 2000 字以上真实操作正文。</p>
+        <p>10 个一级导航每类 10 篇目录；审核通过后逐篇补充可复现的真实图文正文。</p>
       </section>
     </aside>
   );

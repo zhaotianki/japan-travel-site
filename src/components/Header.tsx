@@ -6,14 +6,14 @@ import { ContactModal } from "./ContactModal";
 export function Header() {
   return (
     <header className="site-header">
-      <Link href="/" className="brand" aria-label="AI实战安装教程与Agent知识库首页">
+      <Link href="/" className="brand" aria-label="AI Agent 实战知识库首页">
         <span className="brand-mark">
           <Sparkles size={18} aria-hidden="true" />
         </span>
         <span>{siteConfig.name}</span>
       </Link>
       <nav className="main-nav" aria-label="主导航">
-        <Link href="/tutorials">教程</Link>
+        <Link href="/tutorials">知识库</Link>
         <Link href="/cases">实战案例</Link>
         <Link href="/resources">截图/文档</Link>
         <Link href="/contact">提交问题</Link>

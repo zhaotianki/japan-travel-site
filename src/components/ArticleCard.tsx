@@ -12,22 +12,29 @@ export function ArticleCard({ tutorial, compact = false }: ArticleCardProps) {
 
   return (
     <article className={compact ? "article-card compact" : "article-card"}>
-      <Image src={visual.src} alt={visual.alt} width={1280} height={720} loading="lazy" />
+      <Image src={visual.src} alt={visual.alt} width={1280} height={720} loading="lazy" unoptimized />
       <div className="article-body">
         <div className="meta-row">
           <span>{tutorial.category}</span>
+          <span>{tutorial.difficulty}</span>
           <span>{tutorial.status}</span>
-          <span>{tutorial.sourceType}</span>
         </div>
         <h3>
           <Link href={getTutorialUrl(tutorial)}>{tutorial.title}</Link>
         </h3>
         <p>{tutorial.excerpt}</p>
-        <ul className="plain-list">
-          {tutorial.steps.slice(0, compact ? 3 : 5).map((step) => (
-            <li key={step}>{step}</li>
-          ))}
-        </ul>
+        <dl className="card-facts">
+          <div>
+            <dt>适合人群</dt>
+            <dd>{tutorial.audience}</dd>
+          </div>
+          {!compact ? (
+            <div>
+              <dt>真实操作主题</dt>
+              <dd>{tutorial.realTask}</dd>
+            </div>
+          ) : null}
+        </dl>
       </div>
     </article>
   );

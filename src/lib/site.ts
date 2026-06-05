@@ -1,9 +1,9 @@
 import type { SponsorAd } from "@/content/ads";
-import { getPublishedTutorials, tutorialCatalog } from "@/content/tutorials";
+import { tutorialCatalog } from "@/content/tutorials";
 
 export const siteConfig = {
-  name: "AI实战安装教程与Agent知识库",
-  description: "面向零基础用户的真实操作知识库：AI工具安装、插件安装、MCP配置、Agent部署、API申请、Vercel部署和Github管理。",
+  name: "AI Agent 实战知识库",
+  description: "面向零基础用户的真实操作知识库：Codex、Claude Code、ChatGPT、MCP、Github、Vercel、Cursor、Windsurf 和 Agent 教程目录。",
   defaultUrl: "https://codex-global-blog.vercel.app",
   defaultAdSenseClient: "ca-pub-3023331294575844",
   locale: "zh-CN",
@@ -59,13 +59,13 @@ export function getSponsorAds() {
 }
 
 export function getFeaturedTutorials() {
-  return getPublishedTutorials().slice(0, 4);
+  return tutorialCatalog.slice(0, 4);
 }
 
 export function getContentStats() {
   return {
     tutorials: tutorialCatalog.length,
-    published: getPublishedTutorials().length,
+    published: tutorialCatalog.filter((article) => article.status === "已发布").length,
     targetTutorials: tutorialCatalog.length,
     languages: siteConfig.languages.length
   };

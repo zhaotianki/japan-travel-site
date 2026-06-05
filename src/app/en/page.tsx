@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "English Preview",
-  description: "English landing preview for the Codex global tutorial blog."
+  description: "English preview for the AI Agent practical knowledge base."
 };
 
 export default function EnglishPage() {
@@ -13,9 +13,9 @@ export default function EnglishPage() {
         <span>English</span>
         <span>Preview</span>
       </div>
-      <h1>Codex Global Tutorial Blog</h1>
+      <h1>AI Agent Practical Knowledge Base</h1>
       <p>
-        The first release is Chinese-first. English article pages are reserved for future localization of tutorials, case studies, and AI coding tool comparisons.
+        The first release is Chinese-first. English documentation routes are reserved for verified tutorials about Codex, Claude Code, ChatGPT, MCP, GitHub, Vercel, Cursor, Windsurf, and Agents.
       </p>
       <Link href="/" className="contact-button">
         Back to Chinese site
